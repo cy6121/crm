@@ -1,0 +1,102 @@
+@media (max-width: 604px) {
+	.dialog-login {
+		max-width: 300px;
+	}
+}
+
+@media (max-width: 767px) {
+	.app-content {
+		-webkit-transition: -webkit-transform 0.2s ease;
+		-moz-transition: -moz-transform 0.2s ease;
+		-o-transition: -o-transform 0.2s ease;
+		transition: transform 0.2s ease;
+	}
+
+	.sidebar {
+		width: 75%;
+		display: none;
+	}
+
+	.sidebar:before {
+		content: "";
+		display: block;
+		width: 75%;
+		position: fixed;
+		bottom: 0;
+		top: 0;
+		z-index: -1;
+		background-color: #F2F2F2;
+		border: 0 solid #CCC;
+		border-right-width: 1px;
+	}
+
+	.off-screen {
+		position: absolute;
+		top: 50px;
+		bottom: 0;
+		display: block !important;
+		width: 75%;
+		z-index: 1010;
+		overflow-x: hidden;
+		overflow-y: auto;
+		visibility: visible;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.off-screen + * {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		padding-top: 50px;
+		z-index: 1020;
+		overflow: hidden;
+		background-color: #F0F3F4;
+		-webkit-transform: translate3d(75%, 0, 0px);
+		transform: translate3d(75%, 0, 0px);
+		-webkit-transition: -webkit-transform 0.2s ease;
+		-moz-transition: -moz-transform 0.2s ease;
+		-o-transition: -o-transform 0.2s ease;
+		transition: transform 0.2s ease;
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+
+	.off-screen + * .off-screen-toggle {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		display: block !important;
+		z-index: 1021;
+	}
+
+	.off-screen.pull-right {
+		right: 0;
+	}
+
+	.off-screen.pull-right + * {
+		-webkit-transform: translate3d(-75%, 0, 0px);
+		transform: translate3d(-75%, 0, 0px);
+	}
+}
+
+@media (min-width: 768px) {
+	.app-content {
+		margin-left: 190px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.hidden-480 {
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.breadcrumb > li > a { padding: 0 1px }
+}

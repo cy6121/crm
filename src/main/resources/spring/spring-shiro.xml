@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+    <!-- <bean id="cacheManager" 
+    	class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+	 -->
+    <bean id="securityManager" 
+    	class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+        <!-- <property name="cacheManager" ref="cacheManager"/> -->
+    </bean>
+
+    <bean id="shiroFilter" 
+    	class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/> 
+        <property name="filterChainDefinitions">
+        <!-- 下面value值的第一个/表示项目根路径
+        	anon:它对应的过滤器里面是空的，没有过滤条件
+        	authc:该过滤器下面的页面必须通过验证才能访问
+        -->
+            <value>
+                /static/** = anon
+                /account/** = roles[系统管理员]
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+</beans>

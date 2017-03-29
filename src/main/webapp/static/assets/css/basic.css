@@ -1,0 +1,104 @@
+body {
+	line-height: 1.5;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #393939;
+	background-color: #E4E6E9;
+	overflow-x: hidden;
+}
+a:focus,
+a:active { text-decoration: none; outline: 0; }
+
+.block { display: block !important; }
+
+.inline { display: inline !important; }
+
+.align-center { text-align: center !important; }
+
+.align-right { text-align: right !important; }
+
+.position-relative { position: relative !important; }
+
+.dark { color: #333 !important; }
+
+.white { color: #FFF !important; }
+
+.red { color: #DD5A43 !important; }
+
+.light-red { color: #F77 !important; }
+
+.blue { color: #478FCA !important; }
+
+.light-blue { color: #93CBF9 !important; }
+
+.green { color: #69AA46 !important; }
+
+.light-green { color: #B0D877 !important; }
+
+.orange { color: #FF892A !important; }
+
+.light-orange { color: #FCAC6F !important; }
+
+.orange2 { color: #FEB902 !important; }
+
+.purple { color: #A069C3 !important; }
+
+.pink { color: #C6699F !important; }
+
+.pink2 { color: #D6487E !important; }
+
+.brown { color: #A52A2A !important; }
+
+.grey { color: #777 !important; }
+
+.light-grey { color: #BBB !important; }
+
+.badge.badge-success { background-color: #82AF6F !important; }
+
+.no-padding { padding: 0 !important; }
+
+.no-padding-bottom { padding-bottom: 0 !important; }
+
+.no-padding-top { padding-top: 0 !important; }
+
+.no-padding-left { padding-left: 0 !important; }
+
+.no-padding-right { padding-right: 0 !important; }
+
+.no-margin { margin: 0 !important; }
+
+.no-margin-bottom { margin-bottom: 0 !important; }
+
+.no-margin-top { margin-top: 0 !important; }
+
+.no-margin-left { margin-left: 0 !important; }
+
+.no-margin-right { margin-right: 0 !important; }
+
+.no-radius { border-radius: 0 !important; }
+
+.no-border { border: 0 !important; }
+
+.no-border-bottom { border-bottom: 0 !important; }
+
+.no-border-top { border-top: 0 !important; }
+
+.no-border-left { border-left: 0 !important; }
+
+.no-border-right { border-right: 0 !important; }
+
+.no-box-shadow { -webkit-box-shadow: none !important; box-shadow: none !important; }
+
+.no-text-shadow { text-shadow: none !important; }
+
+.overflow-hidden { overflow: hidden !important; }
+
+.overflow-auto { overflow: auto !important; }
+
+.overflow-scroll { overflow: scroll !important; }
+
+.overflow-visible { overflow: visible !important; }
+
+.bigger-110 { font-size: 110%; }
+
+.bigger-120 { font-size: 120% }
