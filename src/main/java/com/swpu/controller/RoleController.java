@@ -31,7 +31,7 @@ public class RoleController {
 	
 	@RequestMapping(value = "list",method = RequestMethod.GET)
 	public String roleList(){
-		return "system/role/list";
+		return "system/role/role_list";
 	}
 	
 	@RequestMapping(value = "roles.json", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")

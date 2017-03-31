@@ -97,7 +97,7 @@
 			var password = $("#password").val();
 			$.ajax({
 				type : "POST",
-				url : 'login',
+				url : '${ctx}/login',
 				data : {
 					username : username,
 					password : password
@@ -106,7 +106,7 @@
 				cache : false,
 				success : function(data) {
 					if ("success" == data.result) {
-						window.location.href = 'index';
+						window.location.href = '${ctx}/index';
 						return;
 					} else if ("userError" == data.result) {
 						$("#username").tips({

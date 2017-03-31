@@ -38,4 +38,8 @@ public interface RoleMapper {
 	void updateRole(Role role);
 	
 	void deleteRole(Integer roleid);
+	
+	void deleteUserRole(Integer roleid);
+	
+	void deleteRolePermission(Integer roleid);
 }

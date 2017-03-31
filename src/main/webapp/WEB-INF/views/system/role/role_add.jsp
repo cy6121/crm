@@ -44,7 +44,7 @@
 		$("#newRoleModal").modal('show');
 	});
 	$("#saveBtn").click(function() {
-		$.post("addRole", $("#newRoleForm").serialize()).done(function(result) {
+		$.post("${ctx}/system/role/addRole", $("#newRoleForm").serialize()).done(function(result) {
 			if ("success" == result) {
 				$("#newRoleModal").modal("hide");
 				roleTable.ajax.reload();

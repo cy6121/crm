@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="${ctxStatic}/assets/css/left.css" />
 <link rel="stylesheet" href="${ctxStatic}/assets/css/main.css" />
 <link rel="stylesheet" href="${ctxStatic}/assets/css/media.css" />
-<link rel="stylesheet" href="${ctxStatic}/assets/css/jquery-ui-1.10.3.full.min.css" />
 <script src="${ctxStatic}/assets/js/jquery-2.0.3.min.js"></script>
 <script src="${ctxStatic}/assets/js/jquery.tips.js"></script>
+<!-- 引入弹窗组件 -->
+<script type="text/javascript">
+	var basePath = "${ctx}";
+</script>
+<script src="${ctx}/plugins/zDialog/zDrag.js"></script>
+<script src="${ctx}/plugins/zDialog/zDialog.js"></script>

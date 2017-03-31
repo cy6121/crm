@@ -43,4 +43,14 @@
 		delete from sys_role
 		where roleid=#{roleid}
 	</delete>
+	
+	<delete id="deleteUserRole">
+		delete from sys_user_role
+		where roleid=#{roleid}
+	</delete>
+	
+	<delete id="deleteRolePermission">
+		delete from sys_role_permission
+		where roleid=#{roleid}
+	</delete>
 </mapper>

@@ -56,7 +56,7 @@
 	$(document).delegate(".green", "click", function() {
 		$("#editRoleForm")[0].reset();
 		var roleid = $(this).attr("data-id");
-		$.get("role.json", {
+		$.get("${ctx}/system/role/role.json", {
 			"roleid" : roleid
 		}).done(function(result) {
 			$("#roleid").val(result.roleid);
@@ -76,7 +76,7 @@
 
 	$("#editBtn").click(function() {
 
-		$.post("edit", $("#editRoleForm").serialize()).done(function(result) {
+		$.post("${ctx}/system/role/edit", $("#editRoleForm").serialize()).done(function(result) {
 			if (result == "success") {
 				$("#editRoleModal").modal("hide");
 				roleTable.ajax.reload();

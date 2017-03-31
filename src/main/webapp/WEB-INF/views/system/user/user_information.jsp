@@ -126,7 +126,6 @@
 	<script src="${ctxStatic}/assets/js/bootstrap.min.js"></script>
 	<script src="${ctxStatic}/assets/js/ace.min.js"></script>
 	<script src="${ctxStatic}/js/left.js"></script>
-	<script src="${ctxStatic}/assets/js/bootbox.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#changeBtn").click(function() {
@@ -184,64 +183,32 @@
 				$("#confirmPassword").focus();
 				return;
 			}
-			bootbox.dialog({
-				message: "<span class='bigger-110'><strong>确认修改？</strong></span>",
-				buttons: 			
-				{
-					"ok" :
-					{
-						"label" : "确定",
-						"className" : "btn-sm btn-primary",
-						"callback": function() {
-							var userid = $("#userid").val();
-							$("#changeIcon").removeClass("icon-ok");
-							$("#changeIcon").addClass("icon-spinner icon-spin");
-							$.ajax({
-								type : "POST",
-								url : "edit",
-								dataType : 'json',
-								data : {
-									userid : userid,
-									name : name,
-									email : email,
-									phone : phone,
-									password : newPassword,
-									confirmPassword : confirmPassword
-								},
-								cache : false,
-								success : function(data){
-									clearPassword();
-									$("#changeIcon").removeClass("icon-spinner icon-spin");
-									$("#changeIcon").addClass("icon-ok");
-									if(data.result=="success"){
-										$("#changeBtn").tips({
-											side : 1,
-											msg : '修改成功!',
-											bg : '#87b87f',
-											timeout : 2
-										});
-									}else{
-										$("#changeBtn").tips({
-											side : 1,
-											msg : '修改异常!',
-											bg : '#AE81FF',
-											timeout : 2
-										});
-									}
-								}
-							});
-						}
+			Dialog.confirm('警告:确认修改?',function(){
+				var userid = $("#userid").val();
+				$.ajax({
+					type : "POST",
+					url : "${ctx}/system/user/edit",
+					dataType : 'json',
+					data : {
+						userid : userid,
+						name : name,
+						email : email,
+						phone : phone,
+						password : newPassword,
+						confirmPassword : confirmPassword
 					},
-					"cancel" :
-					 {
-						"label" : "取消",
-						"className" : "btn-sm btn-success",
-						"callback": function() {
-							clearPassword();
+					cache : false,
+					success : function(data){
+						clearPassword();
+						if(data.result=="success"){
+							Dialog.alert("修改成功!");
+						}else{
+							Dialog.alert("修改异常!");
 						}
 					}
-				}
+				});
 			});
+			
 		}
 	</script>
 </body>

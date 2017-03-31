@@ -70,21 +70,13 @@
 
 		</div>
 	</div>
-
-	<%@ include file="add.jsp" %>
 	
-	<%@ include file="edit.jsp" %>
-
-	<div id="dialog-confirm" class="hide">
-		<p class="bigger-110 bolder center grey">
-			<i class="icon-hand-right blue bigger-120"></i> 确认删除该用户?
-		</p>
-	</div>
+	<%@ include file="user_add.jsp" %>
+	<%@ include file="user_edit.jsp" %>
 
 	<script src="${ctxStatic}/assets/js/bootstrap.min.js"></script>
 	<script src="${ctxStatic}/assets/js/ace.min.js"></script>
 	<script src="${ctxStatic}/js/left.js"></script>
-	<script src="${ctxStatic}/assets/js/jquery-ui-1.10.3.full.min.js"></script>
 	<script src="${ctxStatic}/assets/js/jquery.dataTables.min.js"></script>
 	<script src="${ctxStatic}/assets/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
@@ -97,7 +89,7 @@
 	            "order":[[0,'asc']],//默认排序方式
 	            "lengthMenu":[10,25,50,100],//每页显示数据条数菜单
 	            "ajax":{
-	                url:"users.json", //获取数据的URL
+	                url:"${ctx}/system/user/users.json", //获取数据的URL
 	                type:"get" //获取数据的方式
 	            },
 	            "columns":[  //返回的JSON中的对象和列的对应关系
@@ -155,36 +147,15 @@
 	      	//删除用户
 	        $(document).delegate(".red","click",function(){
 	        	var userid = $(this).attr("data-id");
-	        	$( "#dialog-confirm" ).removeClass('hide').dialog({
-					resizable: false,
-					modal: true,
-					title: "删除用户",
-					title_html: true,
-					buttons: [
-						{
-							html: "<i class='icon-trash bigger-110'></i>&nbsp; 删除",
-							"class" : "btn btn-danger btn-xs",
-							click: function() {
-								$.post("del",{"userid":userid}).done(function(result){
-				                    if("success" == result) {
-				                        userTable.ajax.reload();
-				                    }
-				                }).fail(function(){
-				                    alert("删除出现异常");
-				                });
-								$( this ).dialog( "close" );
-							}
-						}
-						,
-						{
-							html: "<i class='icon-remove bigger-110'></i>&nbsp; 取消",
-							"class" : "btn btn-xs",
-							click: function() {
-								$( this ).dialog( "close" );
-							}
-						}
-					]
-				});
+	        	Dialog.confirm('警告:您确定要删除该用户?',function(){
+	        		$.post("${ctx}/system/user/del",{"userid":userid}).done(function(result){
+	                    if("success" == result) {
+	                        userTable.ajax.reload();
+	                    }
+	                }).fail(function(){
+	                	Dialog.alert("删除出现异常");
+	                });
+	        	});
 	        });
 	      	
 		});

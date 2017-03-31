@@ -66,9 +66,9 @@
 
 		</div>
 	</div>
-	<%@ include file="add.jsp" %>
+	<%@ include file="role_add.jsp" %>
 	
-	<%@ include file="edit.jsp" %>
+	<%@ include file="role_edit.jsp" %>
 
 	<div id="dialog-confirm" class="hide">
 		<p class="bigger-110 bolder center grey">
@@ -79,10 +79,18 @@
 	<script src="${ctxStatic}/assets/js/bootstrap.min.js"></script>
 	<script src="${ctxStatic}/assets/js/ace.min.js"></script>
 	<script src="${ctxStatic}/js/left.js"></script>
-	<script src="${ctxStatic}/assets/js/jquery-ui-1.10.3.full.min.js"></script>
 	<script src="${ctxStatic}/assets/js/jquery.dataTables.min.js"></script>
 	<script src="${ctxStatic}/assets/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
+		var menuAssignment = function(roleid){
+			var diag = new Dialog();
+			diag.Title = "菜单权限";
+			diag.CancelEvent = function(){
+				diag.close();
+			}
+			diag.show();
+		};
+		
 		$(function() {
 			roleTable = $("#roleTable").DataTable({
 				"processing":true,
@@ -93,7 +101,7 @@
 				"paging":false,	//不分页
 				"searching":false,
 	            "ajax":{
-	                url:"roles.json", //获取数据的URL
+	                url:"${ctx}/system/role/roles.json", //获取数据的URL
 	                type:"get" //获取数据的方式
 	            },
 	            "columns":[  //返回的JSON中的对象和列的对应关系
@@ -108,7 +116,7 @@
 	                	}
 	                },"name":"state"},
 	                {"data":function(row){
-	                	return "<a href='javascript:;' style='text-decoration: none;' class='editLink' data-id='"+row.roleid+"'>菜单权限分配</a>";
+	                	return "<a href='javascript:;' style='text-decoration: none;' onclick='menuAssignment("+row.roleid+")'>菜单权限分配</a>";
 	                }},
 	                {"data":function(row){
 	                    return "<a href='javascript:;' style='text-decoration: none;' class='green' data-id='"+row.roleid+"'><i class='icon-pencil bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='red' data-id='"+row.roleid+"'><i class='icon-trash bigger-110'></i></a>";
@@ -125,44 +133,18 @@
 	            }
 			});
 			
-	        $("table").delegate(".editLink","click",function(){
-	        	var roleid = $(this).attr("data-id");
-	        	console.log(roleid);
-	        });
-	        
 	      	//删除用户
 	        $(document).delegate(".red","click",function(){
 	        	var roleid = $(this).attr("data-id");
-	        	$( "#dialog-confirm" ).removeClass('hide').dialog({
-					resizable: false,
-					modal: true,
-					title: "删除用户",
-					title_html: true,
-					buttons: [
-						{
-							html: "<i class='icon-trash bigger-110'></i>&nbsp; 删除",
-							"class" : "btn btn-danger btn-xs",
-							click: function() {
-								$.post("del",{"roleid":roleid}).done(function(result){
-				                    if("success" == result) {
-				                        roleTable.ajax.reload();
-				                    }
-				                }).fail(function(){
-				                    alert("删除出现异常");
-				                });
-								$( this ).dialog( "close" );
-							}
-						}
-						,
-						{
-							html: "<i class='icon-remove bigger-110'></i>&nbsp; 取消",
-							"class" : "btn btn-xs",
-							click: function() {
-								$( this ).dialog( "close" );
-							}
-						}
-					]
-				});
+	        	Dialog.confirm('警告:您确定要删除该用户?',function(){
+	        		$.post("${ctx}/system/role/del",{"roleid":roleid}).done(function(result){
+	                    if("success" == result) {
+	                        userTable.ajax.reload();
+	                    }
+	                }).fail(function(){
+	                	Dialog.alert("删除出现异常");
+	                });
+	        	});
 	        });
 	      	
 		});

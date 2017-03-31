@@ -54,6 +54,8 @@ public class RoleServiceImpl implements RoleService{
 	@Override
 	public void deleteRole(Integer roleid) {
 		roleMapper.deleteRole(roleid);
+		roleMapper.deleteUserRole(roleid);
+		roleMapper.deleteRolePermission(roleid);
 	}
 
 }

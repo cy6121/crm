@@ -41,7 +41,7 @@ public class UserController {
 
 	@RequestMapping(value = "information", method = RequestMethod.GET)
 	public String goEdit() {
-		return "system/user/information";
+		return "system/user/user_information";
 	}
 
 	@RequestMapping(value = "edit", produces = "application/json;charset=UTF-8")
@@ -71,7 +71,7 @@ public class UserController {
 		List<Role> roleList = roleService.selectAll();
 		map.put("roleList",roleList);
 		model.addAllAttributes(map);
-		return "system/user/list";
+		return "system/user/user_list";
 	}
 
 	@RequestMapping(value = "users.json", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")

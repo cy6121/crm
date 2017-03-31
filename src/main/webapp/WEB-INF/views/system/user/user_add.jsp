@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="modal fade" id="editUserModal">
+<div class="modal fade" id="newUserModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -8,35 +8,40 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">编辑用户</h4>
+				<h4 class="modal-title">添加用户</h4>
 			</div>
 			<div class="modal-body">
-				<form id="editUserForm" class="form-horizontal">
-					<input type="hidden" name="userid" id="userid">
+				<form id="newUserForm" class="form-horizontal">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">用户名</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="username"
-								id="username">
+							<input type="text" class="form-control" name="username">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">姓名</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="name" id="name">
+							<input type="text" class="form-control" name="name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">联系电话</label>
 						<div class="col-sm-10">
 							<input type="text" maxlength="11" class="form-control"
-								name="phone" id="phone">
+								name="phone">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">密码</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" name="password"
+								value="123456"> <span class="help-block">默认密码为：123456</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">邮箱</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" name="email" id="email">
+							<input type="email" class="form-control" name="email">
 						</div>
 					</div>
 					<div class="form-group">
@@ -51,13 +56,13 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">状态</label>
+						<label class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-10">
 							<div class="radio">
-								<label> <input type="radio" class="radio" name="state"
-									value="1" id="ok"><span class="lbl">正常</span>
-								</label> <label> <input type="radio" class="radio" name="state"
-									value="0" id="disable"><span class="lbl">禁用</span>
+								<label> <input type="radio" class="radio" name="sex"
+									value="男" checked><span class="lbl">男</span>
+								</label> <label> <input type="radio" class="radio" name="sex"
+									value="女"><span class="lbl">女</span>
 								</label>
 							</div>
 						</div>
@@ -66,7 +71,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" id="editBtn" class="btn btn-primary">保存</button>
+				<button type="button" id="saveBtn" class="btn btn-primary">保存</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -75,49 +80,19 @@
 </div>
 <!-- /.modal -->
 <script type="text/javascript">
-	//显示编辑用户
-	$(document).delegate(".green", "click", function() {
-		$("#editUserForm")[0].reset();
-		var userid = $(this).attr("data-id");
-		$.get("user.json", {
-			"userid" : userid
-		}).done(function(result) {
-			$("#userid").val(result.userid);
-			$("#username").val(result.username);
-			$("#name").val(result.name);
-			$("#phone").val(result.phone);
-			$("#email").val(result.email);
-
-			$("input[name='role']").each(function() {
-				var roleList = result.roleList;
-				for (var index = 0; index < roleList.length; index++) {
-					var role = roleList[index];
-					if ($(this).val() == role.roleid) {
-						$(this)[0].checked = true;
-					}
-				}
-			});
-			if (result.state == "1") {
-				$("#ok")[0].checked = true;
-			} else {
-				$("#disable")[0].checked = true;
-			}
-		}).fail(function() {
-
-		});
-
-		$("#editUserModal").modal("show");
+	//添加新用户
+	$("#addNewUser").click(function() {
+		$("#newUserForm")[0].reset();
+		$("#newUserModal").modal('show');
 	});
-
-	$("#editBtn").click(function() {
-
-		$.post("edit", $("#editUserForm").serialize()).done(function(result) {
-			if (result == "success") {
-				$("#editUserModal").modal("hide");
+	$("#saveBtn").click(function() {
+		$.post("${ctx}/system/user/addUser", $("#newUserForm").serialize()).done(function(result) {
+			if ("success" == result) {
+				$("#newUserModal").modal("hide");
 				userTable.ajax.reload();
 			}
 		}).fail(function() {
-			alert("修改用户异常");
+			alert("添加时出现异常");
 		});
 
 	});

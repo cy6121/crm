@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Strings;
 import com.swpu.entity.User;
 import com.swpu.mapper.UserMapper;
 import com.swpu.service.UserService;
@@ -39,7 +40,9 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	@Override
 	public boolean updateUser(User user) {
-		user.setPassword(DigestUtils.md5Hex(user.getPassword() + passwordSalt));
+		if (!Strings.isNullOrEmpty(user.getPassword())) {
+			user.setPassword(DigestUtils.md5Hex(user.getPassword() + passwordSalt));
+		}
 		try {
 			int row = userMapper.updateUser(user);
 			if (row > 0) {

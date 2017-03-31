@@ -3,7 +3,7 @@
 	<div class="navbar-header pull-left" data-toggle="class:off-screen"
 		data-target=".sidebar">
 		<a href="#" class="navbar-brand">
-			<button class="hidden-xs">
+			<button class="hidden-xs" style="font-size: inherit;">
 				<i class="icon-home"></i>
 			</button>
 			<button class="visible-xs-inline">
