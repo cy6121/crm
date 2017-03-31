@@ -42,8 +42,7 @@ public class UserRealm extends AuthorizingRealm{
      */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-		User userShiro = (User) principalCollection.getPrimaryPrincipal();
-		User user = userMapper.getUserByNameAndPwd(userShiro);
+		User user = (User) principalCollection.getPrimaryPrincipal();
 		if(null != user){
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			List<Role> roleList = roleMapper.findByUserId(user.getUserid());
