@@ -57,7 +57,7 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	void addUser(User user,String[] role);
+	void addUser(User user,String[] roleid);
 	
 	/** 修改用户信息
 	 * @param user

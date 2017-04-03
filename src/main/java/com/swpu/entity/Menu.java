@@ -9,19 +9,29 @@ public class Menu {
 	
 	public static final String SESSION_MENU_KEY = "menuList";
 	public static final String SESSION_SUBMENU_KEY = "submenuList";
+	public static final String AuthType_Menu = "menu";		//授权类型:菜单类型
+	public static final String AuthType_Permission = "permission";//授权类型:权限类型
 	
-	private Integer menuId;
+	
+	private Integer id;
 	private String name;
 	private String url;
-	private String parentId;
+	private String pId;
 	private String order;
 	private String icon;
 	private String type;
-	public Integer getMenuId() {
-		return menuId;
+	private boolean checked;
+	public boolean isChecked() {
+		return checked;
 	}
-	public void setMenuId(Integer menuId) {
-		this.menuId = menuId;
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -35,11 +45,11 @@ public class Menu {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getParentId() {
-		return parentId;
+	public String getpId() {
+		return pId;
 	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setpId(String pId) {
+		this.pId = pId;
 	}
 	public String getOrder() {
 		return order;
@@ -59,4 +69,5 @@ public class Menu {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
 }

@@ -117,7 +117,7 @@
 				userTable.ajax.reload();
 			}
 		}).fail(function() {
-			alert("修改用户异常");
+			Dialog.alert("修改异常!");
 		});
 
 	});

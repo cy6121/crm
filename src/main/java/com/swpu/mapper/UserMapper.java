@@ -62,7 +62,7 @@ public interface UserMapper {
 	 * @param user
 	 * @param role
 	 */
-	void addUserRole(User user,String[] role);
+	void addUserRole(User user,String[] roleid);
 	
 	/** 修改用户信息
 	 * @param user

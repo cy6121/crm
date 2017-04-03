@@ -76,14 +76,14 @@ public class UserServiceImpl implements UserService{
 
 	@Transactional
 	@Override
-	public void addUser(User user,String[] role) {
+	public void addUser(User user,String[] roleid) {
 		
 		user.setPassword(DigestUtils.md5Hex(user.getPassword() + passwordSalt));
 		user.setState(User.USER_STATE_OK);
 		userMapper.addUser(user);
 		
-		if (role!=null) {
-			userMapper.addUserRole(user,role);
+		if (roleid!=null) {
+			userMapper.addUserRole(user,roleid);
 		}
 	}
 

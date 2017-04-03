@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="getUserAndRoleByUserId" resultMap="userMap">
-		select t.userid,t.username,t.name,t.phone,t.email,r.roleid,r.rolename,t.state
+		select t.userid,t.username,t.name,t.phone,t.email,r.roleid,r.rolename,r.state,t.state
 		from sys_user t
 		LEFT JOIN sys_user_role ru on ru.userid=t.userid
 		LEFT JOIN sys_role r on ru.roleid=r.roleid
@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="getAllUserByParam" resultMap="userMap">
-		select t.userid,t.username,t.name,t.phone,t.email,r.roleid,r.rolename,t.state
+		select t.userid,t.username,t.name,t.phone,t.email,r.roleid,r.rolename,r.state,t.state
 		from sys_user t
 		LEFT JOIN sys_user_role ru on ru.userid=t.userid
 		LEFT JOIN sys_role r on ru.roleid=r.roleid

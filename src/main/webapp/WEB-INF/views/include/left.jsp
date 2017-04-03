@@ -14,7 +14,7 @@
 				</a>
 				<ul class="submenu">
 					<c:forEach var="submenu" items="${submenuList}">
-						<c:if test="${submenu.parentId==menu.menuId}">
+						<c:if test="${submenu.pId==menu.id}">
 							<li id="${submenu.name}">
 								<a href="${ctx}/${submenu.url}">
 									<i class="${submenu.icon}"></i>

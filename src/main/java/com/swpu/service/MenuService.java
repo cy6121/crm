@@ -1,6 +1,7 @@
 package com.swpu.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.swpu.entity.Menu;
 
@@ -12,8 +13,13 @@ import com.swpu.entity.Menu;
 */
 public interface MenuService {
 
-	/** 获取菜单
+	/** 根据用户角色获取菜单
 	 * @return
 	 */
-	List<Menu> getMenu();
+	List<Menu> getMenu(Map<String,Object> params);
+	
+	/** 获取所有授权类型(菜单或权限)
+	 * @return
+	 */
+	List<Menu> getALLMenu(Map<String,Object> params);
 }

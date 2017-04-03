@@ -1,11 +1,21 @@
 package com.swpu.entity;
+
+import java.io.Serializable;
+
 /** 
 * @author  cy
 * @createDate 2017年1月25日 上午10:40:06 
 * @version 1.0 
 * @describe  
 */
-public class Role {
+public class Role implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2395264574694708913L;
+	public static final String ROLE_STATE_OK = "1";
+	public static final String ROLE_STATE_DISABLE = "0";
 	
 	private Integer roleid;
 	private String rolename;

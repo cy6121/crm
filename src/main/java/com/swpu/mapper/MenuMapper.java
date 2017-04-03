@@ -1,6 +1,7 @@
 package com.swpu.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.swpu.entity.Menu;
 
@@ -12,9 +13,14 @@ import com.swpu.entity.Menu;
 */
 public interface MenuMapper {
 
-	/** 获取菜单
+	/** 根据角色获取资源
 	 * @return
 	 */
-	List<Menu> getMenu();
+	List<Menu> getAuthByRole(Map<String,Object> params);
+	
+	/** 获取所有资源(菜单或者权限控制)
+	 * @return
+	 */
+	List<Menu> getALLAuth(Map<String,Object> params);
 	
 }

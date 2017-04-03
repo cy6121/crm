@@ -3,8 +3,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>角色管理</title>
 <%@ include file="/WEB-INF/views/include/top.jsp"%>
 <link rel="stylesheet"
@@ -69,6 +67,8 @@
 	<%@ include file="role_add.jsp" %>
 	
 	<%@ include file="role_edit.jsp" %>
+	
+	<%@ include file="../authorization/authorization.jsp" %>
 
 	<div id="dialog-confirm" class="hide">
 		<p class="bigger-110 bolder center grey">
@@ -82,14 +82,6 @@
 	<script src="${ctxStatic}/assets/js/jquery.dataTables.min.js"></script>
 	<script src="${ctxStatic}/assets/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
-		var menuAssignment = function(roleid){
-			var diag = new Dialog();
-			diag.Title = "菜单权限";
-			diag.CancelEvent = function(){
-				diag.close();
-			}
-			diag.show();
-		};
 		
 		$(function() {
 			roleTable = $("#roleTable").DataTable({
@@ -116,7 +108,7 @@
 	                	}
 	                },"name":"state"},
 	                {"data":function(row){
-	                	return "<a href='javascript:;' style='text-decoration: none;' onclick='menuAssignment("+row.roleid+")'>菜单权限分配</a>";
+	                	return "<a href='javascript:;' style='text-decoration: none;' onclick='menuAssignment("+row.roleid+",1)'>菜单权限分配</a>";
 	                }},
 	                {"data":function(row){
 	                    return "<a href='javascript:;' style='text-decoration: none;' class='green' data-id='"+row.roleid+"'><i class='icon-pencil bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='red' data-id='"+row.roleid+"'><i class='icon-trash bigger-110'></i></a>";
@@ -139,7 +131,7 @@
 	        	Dialog.confirm('警告:您确定要删除该用户?',function(){
 	        		$.post("${ctx}/system/role/del",{"roleid":roleid}).done(function(result){
 	                    if("success" == result) {
-	                        userTable.ajax.reload();
+	                        roleTable.ajax.reload();
 	                    }
 	                }).fail(function(){
 	                	Dialog.alert("删除出现异常");

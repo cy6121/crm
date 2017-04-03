@@ -41,5 +41,12 @@ public interface RoleMapper {
 	
 	void deleteUserRole(Integer roleid);
 	
-	void deleteRolePermission(Integer roleid);
+	void deleteRolePermission(Integer roleid,String type);
+	
+	/** 添加角色授权(菜单访问权限或者权限控制)
+	 * @param roleid
+	 * @param menuid
+	 */
+	void addRoleAuth(Integer roleid,String[] menuid);
+	
 }

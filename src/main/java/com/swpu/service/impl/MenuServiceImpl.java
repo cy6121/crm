@@ -1,6 +1,7 @@
 package com.swpu.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,13 @@ public class MenuServiceImpl implements MenuService {
 	private MenuMapper menuMapper;
 	
 	@Override
-	public List<Menu> getMenu() {
-		return menuMapper.getMenu();
+	public List<Menu> getMenu(Map<String,Object> params) {
+		return menuMapper.getAuthByRole(params);
+	}
+
+	@Override
+	public List<Menu> getALLMenu(Map<String,Object> params) {
+		return menuMapper.getALLAuth(params);
 	}
 
 }

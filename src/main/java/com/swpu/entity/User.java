@@ -18,6 +18,8 @@ public class User implements Serializable{
 	public static final String USER_STATE_OK = "1";
 	public static final String USER_STATE_DISABLE = "0";
 	public static final String SESSION_KEY = "curr_user";
+	public static final String AVAILABLE_URL = "available_url";
+	public static final String USER_ROLE = "curr_user_role";
 
 	private Integer userid;
 	private String username;

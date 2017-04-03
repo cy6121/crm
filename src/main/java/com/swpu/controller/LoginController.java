@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.swpu.entity.Menu;
+import com.swpu.entity.Role;
 import com.swpu.entity.User;
 import com.swpu.service.MenuService;
+import com.swpu.service.RoleService;
 
 /**
  * @author cy
@@ -40,6 +41,8 @@ public class LoginController {
 	@Autowired
 	private MenuService menuService;
 	
+	@Autowired
+	private RoleService roleService;
 	/**
 	 * 登录页面
 	 * 
@@ -65,9 +68,6 @@ public class LoginController {
 		Map<String, Object> map = Maps.newHashMap();
 		// 获取认证主体，如果当前主体已经存在，则退出当前主体
 		Subject subject = SecurityUtils.getSubject();
-		if (subject.isAuthenticated()) {
-			subject.logout();
-		}
 		try {
 			String pwd = DigestUtils.md5Hex(password + passwordSalt);
 			UsernamePasswordToken token = new UsernamePasswordToken(username, pwd);
@@ -75,6 +75,9 @@ public class LoginController {
 			Session session = subject.getSession();// session默认会话时间半小时
 			User user = (User) subject.getPrincipal();
 			session.setAttribute(User.SESSION_KEY, user);
+			List<Role> roleList = roleService.findByUserId(user.getUserid());
+			user.setRoleList(roleList);
+			session.setAttribute(User.USER_ROLE,roleList);
 			errInfo = "success";
 		} catch (LockedAccountException e) {
 			errInfo = "disable";
@@ -88,39 +91,21 @@ public class LoginController {
 	/** 主页
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String home() {
-		List<Menu> menuList = Lists.newLinkedList();
-		List<Menu> submenuList = Lists.newLinkedList();
-		boolean isAdmin = false;//判断是否有管理员权限
+		Map<String,Object> params = Maps.newHashMap();
 		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		List<Role> roleList = (List<Role>) session.getAttribute(User.USER_ROLE);
+		params.put("roleList",roleList);
+		params.put("isSubMenu",false);
 		
-		if (subject.hasRole("管理员")) {
-			isAdmin = !isAdmin;
-		}
-		
-		List<Menu> menus = menuService.getMenu();
-		if (menus!=null) {
-			for (Menu menu : menus) {
-				if (isAdmin) {
-					if (menu.getParentId().equals("0")) {
-						menuList.add(menu);
-					}else{
-						submenuList.add(menu);
-					}
-				}else{
-					if (menu.getParentId().equals("0") && !menu.getType().equals("1")) {
-						menuList.add(menu);
-					}else if (!menu.getParentId().equals("1") && !menu.getType().equals("1")) {
-						submenuList.add(menu);
-					}
-				}
-			}
-			Session session = subject.getSession();
-			session.setAttribute(Menu.SESSION_MENU_KEY,menuList);
-			session.setAttribute(Menu.SESSION_SUBMENU_KEY,submenuList);
-		}
-		
+		List<Menu> menuList = menuService.getMenu(params);
+		params.put("isSubMenu",true);
+		List<Menu> submenuList = menuService.getMenu(params);
+		session.setAttribute(Menu.SESSION_MENU_KEY,menuList);
+		session.setAttribute(Menu.SESSION_SUBMENU_KEY,submenuList);
 		return "index";
 	}
 	
@@ -135,4 +120,5 @@ public class LoginController {
 		subject.logout();
 		return "redirect:/login";
 	}
+	
 }

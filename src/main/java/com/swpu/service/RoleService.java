@@ -37,4 +37,11 @@ public interface RoleService {
 	void updateRole(Role role);
 	
 	void deleteRole(Integer roleid);
+	
+	/** 添加角色授权(菜单访问权限或者权限控制)
+	 * @param roleid
+	 * @param menuid
+	 * @param type
+	 */
+	void addRoleAuth(Integer roleid,String[] menuid,String type);
 }

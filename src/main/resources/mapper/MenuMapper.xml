@@ -3,10 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swpu.mapper.MenuMapper">
-	<select id="getMenu" resultType="Menu">
-		select menu_id,name,url,parent_id,sort,icon,type
-		from sys_menu
-		where type='menu'
-		order by menu_id,parent_id,sort
+	<select id="getAuthByRole" resultType="Menu">
+		select distinct t1.id,t1.pId,t1.name,t1.code,t1.url,t1.sort,t1.icon
+		from sys_menu t1,sys_role_permission t2
+		where t1.type='menu'
+		and t2.menuid=t1.id
+		<if test="isSubMenu==true">
+			and t1.pId='1'
+		</if>
+		<if test="isSubMenu==false">
+			and t1.pId='0'
+		</if>
+		and t2.roleid in (
+		<foreach collection="roleList" item="role" separator=",">
+			#{role.roleid}
+		</foreach>)
+		order by pId,sort
+	</select>
+	
+	<select id="getALLAuth" resultType="Menu">
+		select distinct t1.id,t1.pId,t1.name
+		from sys_menu t1,sys_role_permission t2
+		where 1=1
+		<if test="type=='menu'">
+			and t1.type=#{type}
+		</if>
+		<if test="roleid!=null">
+			and t1.id=t2.menuid
+			and t2.roleid=#{roleid}
+		</if>
 	</select>
 </mapper>
