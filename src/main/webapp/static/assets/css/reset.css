@@ -294,8 +294,8 @@
 .btn-default,
 .btn:focus,
 .btn-default:focus {
-	background-color: #ABBAC3 !important;
-	border-color: #ABBAC3 !important;
+	/*background-color: #ABBAC3 !important;
+	border-color: #ABBAC3 !important;*/
 	outline: 0 !important;
 }
 

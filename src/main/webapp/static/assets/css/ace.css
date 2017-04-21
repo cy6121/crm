@@ -3662,7 +3662,7 @@ li.item-default { border-left-color: #ABBAC3 }
 
 .profile-user-info { margin: 0 12px }
 
-.profile-info-row { position: relative }
+.profile-info-row { position: relative ;height:32px}
 
 .profile-info-name { position: absolute; width: 110px; text-align: right; padding: 6px 10px 6px 0; left: 0; top: 0; bottom: 0; font-weight: normal; color: #667E99; background-color: transparent; border-top: 1px dotted #D5E4F1 }
 

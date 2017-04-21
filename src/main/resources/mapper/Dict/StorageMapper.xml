@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.StorageMapper">
+	
+	<resultMap type="Storage" id="storageMap">
+		<id column="stk_id" property="stkId"/>
+		<result column="warehouse" property="warehouse"/>
+		<result column="stk_ware" property="stkWare"/>
+		<result column="stk_count" property="stkCount"/>
+		<result column="memo" property="memo"/>
+		<association property="product" javaType="Product">
+			<id column="prod_id" property="prodId"/>
+			<result column="name" property="name"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectStorageALL" resultMap="storageMap">
+		select stk_id,t1.prod_id,t2.name,warehouse,stk_ware,stk_count,t1.memo
+		from pro_storage t1,pro_product t2
+		where t1.prod_id=t2.prod_id
+		<if test="searchValue!=null and searchValue!=''">
+			and t2.name like #{searchValue} or warehouse like #{searchValue}
+		</if>
+		limit ${currentPage},${pageNum}
+	</select>
+	
+	<select id="findStorageById" resultMap="storageMap">
+		select stk_id,t1.prod_id,t2.name,warehouse,stk_ware,stk_count,t1.memo
+		from pro_storage t1,pro_product t2
+		where t1.prod_id=t2.prod_id 
+		and t1.stk_id=#{stkId}
+	</select>
+	
+	<select id="findStorageCount" resultType="Integer">
+		select count(1) from pro_storage
+	</select>
+	
+	<select id="findStorageCountByParam" resultType="Integer">
+		select count(stk_id) from pro_storage t1,pro_product t2
+		where t1.prod_id=t2.prod_id 
+		<if test="searchValue!=null and searchValue!=''">
+			and t2.name like #{searchValue} or warehouse like #{searchValue}
+		</if>
+	</select>
+	
+	<insert id="insertStorage">
+		insert into pro_storage(prod_id,warehouse,stk_ware,stk_count,memo)
+		values(#{product.prodId},#{warehouse},#{stkWare},#{stkCount},#{memo})
+	</insert>
+
+	<delete id="deleteStorage">
+		delete from pro_storage where stk_id=#{stkId}
+	</delete>	
+	
+	<update id="updateStorage">
+		update pro_storage set
+		warehouse=#{warehouse},
+		stk_ware=#{stkWare},
+		stk_count=#{stkCount},
+		memo=#{memo}
+		where stk_id=#{stkId}
+	</update>
+</mapper>

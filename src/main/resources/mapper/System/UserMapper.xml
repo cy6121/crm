@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.UserMapper">
+	
+	<sql id="Base_Column_List">
+		userid,username,password,name,sex,state,phone,email
+	</sql>
+
+	<select id="getUserByName" resultMap="userMap2">
+		select <include refid="Base_Column_List" /> 
+		from sys_user
+		where username=#{username} or name=#{username}
+	</select>
+	
+	<select id="getUserByUserId" resultMap="userMap2">
+		select <include refid="Base_Column_List" />
+		from sys_user
+		where userid=#{userid}
+	</select>
+	
+	<select id="getUserByUserRole" resultType="User">
+		select userid,name
+		from sys_user 
+		where state='1'
+		and userid in (
+			select userid
+			from sys_user_role
+			where roleid in (
+				select roleid
+				from sys_role
+				where rolename=#{rolename}
+			)
+		)
+	</select>
+	
+	<select id="getUserAndRoleByUserId" resultMap="userMap">
+		select t.userid,t.username,t.name,t.phone,t.email,r.roleid,r.rolename,t.state
+		from sys_user t
+		LEFT JOIN sys_user_role ru on ru.userid=t.userid
+		LEFT JOIN sys_role r on ru.roleid=r.roleid
+		where t.userid=#{userid}
+	</select>
+	
+	<select id="getAllUserByParam"  resultMap="userMap2">
+		select t.userid,t.username,t.name,t.phone,t.email,t.state
+		from sys_user t
+		<where>
+			<if test="searchValue!=null and searchValue!=''">
+				name like #{searchValue} or phone like #{searchValue}
+			</if>
+		</where>
+		order by ${orderColumnName} ${orderType}
+		limit ${currentPage},${pageNum}
+	</select>
+	
+	<select id="findUserCount" resultType="Integer">
+		select count(1) from sys_user
+	</select>
+	
+	<select id="findUserCountByParam" resultType="Integer">
+		select count(1) from sys_user
+		<where>
+			<if test="searchValue!=null and searchValue!=''">
+				name like #{searchValue} or phone like #{searchValue}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateUser">
+		update sys_user set
+			name=#{name}
+			,email=#{email}
+			,phone=#{phone}
+			<if test="password!=null and password!=''">
+				,password=#{password}
+			</if>
+		where userid=#{userid}
+	</update>
+	
+	<insert id="addUser" keyProperty="userid">
+		insert into sys_user(username,password,name,sex,state,phone,email)
+		values(#{username},#{password},#{name},#{sex},#{state},#{phone},#{email})
+	</insert>
+	
+	<insert id="addUserRole">
+		insert into sys_user_role(userid,roleid)
+		values
+		<foreach collection="param2" item="roleId" separator=",">
+            (#{param1.userid},#{roleId})
+        </foreach>
+	</insert>
+	
+	<update id="editUser">
+		update sys_user set
+			username=#{username},
+			name=#{name},
+			phone=#{phone},
+			email=#{email},
+			state=#{state}
+		where userid=#{userid}
+	</update>
+	
+	<delete id="delUserAndRole">
+		delete from sys_user_role
+		where userid=#{userid}
+	</delete>
+	
+	<delete id="delUser">
+		delete from sys_user
+		where userid=#{userid}
+	</delete>
+	
+	<resultMap type="User" id="userMap">
+		<id column="userid" property="userid"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
+		<result column="state" property="state"/>
+		<collection property="roleList" ofType="Role">
+			<id column="roleid" property="roleid"/>
+			<result column="rolename" property="rolename"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap type="User" id="userMap2">
+		<id column="userid" property="userid"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
+		<result column="state" property="state"/>
+		<collection property="roleList" ofType="Role" column="userid" select="com.swpu.mapper.RoleMapper.findByUserId"/>
+	</resultMap>
+	
+</mapper>        

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.RoleMapper">
+	
+	<sql id="Base_Column_List">
+		roleid,rolename,description
+	</sql>
+	
+	<select id="findByUserId" resultType="Role">
+		select <include refid="Base_Column_List"></include>
+		from sys_role t where exists
+		(select 1 from sys_user_role where userid=#{userid} and t.roleid=roleid)
+	</select>
+	
+	<select id="selectAll" resultType="Role">
+		select <include refid="Base_Column_List"></include>
+		from sys_role 
+	</select>
+	
+	<select id="selectOne" resultType="Role">
+		select <include refid="Base_Column_List"></include>
+		from sys_role 
+		where roleid=#{roleid}
+	</select>
+	
+	<insert id="save">
+		insert into sys_role (rolename,description)
+		values(#{rolename},#{description})
+	</insert>
+	
+	<update id="updateRole">
+		update sys_role set
+		<if test="rolename!=null and rolename!=''">
+			rolename=#{rolename},
+		</if>
+		description=#{description}
+		where roleid=#{roleid}
+	</update>
+	
+	<delete id="deleteRole">
+		delete from sys_role
+		where roleid=#{roleid}
+	</delete>
+	
+	<delete id="deleteUserRole">
+		delete from sys_user_role
+		where roleid=#{roleid}
+	</delete>
+	
+	<delete id="deleteRolePermission">
+		delete t1 from sys_role_permission t1
+		<if test="param2!=null">
+			,sys_menu t2
+		</if>
+		where t1.roleid=#{param1}
+		<if test="param2!=null">
+			and t1.menuid=t2.id
+			and t2.type=#{param2}
+		</if>
+	</delete>
+	
+	<insert id="addRoleAuth">
+		insert into sys_role_permission(roleid,menuid)
+		values
+		<foreach collection="param2" item="menuid" separator=",">
+            (#{param1},#{menuid})
+        </foreach>
+	</insert>
+	
+</mapper>

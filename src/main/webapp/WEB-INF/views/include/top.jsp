@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${ctxStatic}/assets/css/left.css" />
 <link rel="stylesheet" href="${ctxStatic}/assets/css/main.css" />
 <link rel="stylesheet" href="${ctxStatic}/assets/css/media.css" />
+<link rel="stylesheet" href="${ctxStatic}/assets/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="${ctx}/plugins/zTree/2.6/zTreeStyle.css"/>
 
 <script src="${ctxStatic}/assets/js/jquery-2.0.3.min.js"></script>

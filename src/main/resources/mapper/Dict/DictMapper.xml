@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.DictMapper">
+	<sql id="base_column_list">
+		dict_id,type,item,value,editable
+	</sql>
+	<select id="selectDictALL" resultType="Dict">
+		select 
+		<include refid="base_column_list"></include>
+		from base_dict
+	</select>
+	
+	<select id="findDictById" resultType="Dict">
+		select 
+		<include refid="base_column_list"></include>
+		from base_dict
+		where dict_id=#{dictId}
+	</select>
+	
+	<insert id="insertDict">
+		insert into base_dict(type,item,value)
+		values(#{type},#{item},#{value})
+	</insert>
+
+	<delete id="deleteDict">
+		delete from base_dict where dict_id=#{dictId}
+	</delete>	
+	
+	<update id="updateDict">
+		update base_dict set
+		type=#{type},
+		item=#{item},
+		value=#{value},
+		editable=#{editable}
+		where dict_id=#{dictId}
+	</update>
+</mapper>

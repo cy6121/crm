@@ -7,12 +7,6 @@ package com.swpu.entity;
 */
 public class Menu {
 	
-	public static final String SESSION_MENU_KEY = "menuList";
-	public static final String SESSION_SUBMENU_KEY = "submenuList";
-	public static final String AuthType_Menu = "menu";		//授权类型:菜单类型
-	public static final String AuthType_Permission = "permission";//授权类型:权限类型
-	
-	
 	private Integer id;
 	private String name;
 	private String url;

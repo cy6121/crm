@@ -13,6 +13,7 @@ import com.google.common.base.Strings;
 import com.swpu.entity.User;
 import com.swpu.mapper.UserMapper;
 import com.swpu.service.UserService;
+import com.swpu.util.Const;
 
 /** 
 * @author  cy
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 	
 	@Override
-	public User getUserByNameAndPwd(User user){
-		return userMapper.getUserByNameAndPwd(user);
+	public User getUserByName(String username){
+		return userMapper.getUserByName(username);
 	}
 
 	/* 捕获异常，防止程序不能向下继续运行，出现假死现象,，默认对运行期例外进行事物回滚
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService{
 	public void addUser(User user,String[] roleid) {
 		
 		user.setPassword(DigestUtils.md5Hex(user.getPassword() + passwordSalt));
-		user.setState(User.USER_STATE_OK);
+		user.setState(Const.USER_STATE_OK);
 		userMapper.addUser(user);
 		
 		if (roleid!=null) {
@@ -106,6 +107,11 @@ public class UserServiceImpl implements UserService{
 	public void delUser(Integer userid) {
 		userMapper.delUser(userid);
 		userMapper.delUserAndRole(userid);
+	}
+
+	@Override
+	public List<User> getUserByUserRole(String rolename) {
+		return userMapper.getUserByUserRole(rolename);
 	}
 
 }

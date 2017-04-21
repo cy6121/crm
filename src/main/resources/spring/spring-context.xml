@@ -9,15 +9,16 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
-	
+
 	<!-- 启用注解 -->
 	<context:annotation-config />
-	
+
 	<!-- 使用注解注册Bean,主容器中不扫描Controller,在spring-dispatcher中扫描Controller -->
 	<context:component-scan base-package="com.swpu">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
 	<context:property-placeholder location="classpath:config.properties" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
@@ -31,19 +32,20 @@
 		<property name="maxWaitMillis" value="${jdbc.maxWaitMillis}"></property>
 	</bean>
 
-	<!--JDBC事务管理器,开启Spring事物处理,数据源必须和SqlSessionFactory的数据源一致-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+	<!--JDBC事务管理器,开启Spring事物处理,数据源必须和SqlSessionFactory的数据源一致 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
-    <!--基于注解的事务配置-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+	<!--基于注解的事务配置 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="typeAliasesPackage" value="com.swpu.entity" />
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:mapper/*/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

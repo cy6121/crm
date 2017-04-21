@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.swpu.entity.User;
 import com.swpu.service.UserService;
+import com.swpu.util.Const;
 
 /** 
 * @author  cy
@@ -48,13 +49,9 @@ public class UserRealm extends AuthorizingRealm{
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		String username = token.getUsername();
-		String password = new String(token.getPassword());
-		User temp = new User();
-		temp.setUsername(username);
-		temp.setPassword(password);
-		User user = userService.getUserByNameAndPwd(temp);
+		User user = userService.getUserByName(username);//密码shiro会自动验证
 		if(user!=null){
-			if(User.USER_STATE_DISABLE.equals(user.getState())){
+			if(Const.USER_STATE_DISABLE.equals(user.getState())){
 				throw new LockedAccountException("该账户已被禁用");
 			}
 			return new SimpleAuthenticationInfo(user,user.getPassword(),getName());

@@ -13,12 +13,12 @@ import com.swpu.entity.User;
 */
 public interface UserService {
 	
-	/** 根据用户名和密码获取用户
+	/** 根据用户名获取用户
 	 * @param user
 	 * @return
 	 * @throws Exception 
 	 */
-	User getUserByNameAndPwd(User user);
+	User getUserByName(String username);
 	
 	/** 更新用户信息
 	 * @param user
@@ -69,4 +69,6 @@ public interface UserService {
 	 * @param userid
 	 */
 	void delUser(Integer userid);
+	
+	List<User> getUserByUserRole(String rolename);
 }

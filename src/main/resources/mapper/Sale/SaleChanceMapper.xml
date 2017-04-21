@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.SaleChanceMapper">
+	
+	<resultMap type="SaleChance" id="saleChanceMap">
+		<id column="sale_id" property="sale_id"/>
+		<result column="source" property="source"/>
+		<result column="cus_name" property="cus_name"/>
+		<result column="title" property="title"/>
+		<result column="rate" property="rate"/>
+		<result column="contact" property="contact"/>
+		<result column="tel" property="tel"/>
+		<result column="description" property="description"/>
+		<result column="create_date" property="create_date"/>
+		<result column="allot_date" property="allot_date"/>
+		<result column="state" property="state"/>
+		
+		<association property="create" column="create_id"
+			select="com.swpu.mapper.UserMapper.getUserByUserId">
+		</association>
+		<association property="allot" column="allot_id"
+			select="com.swpu.mapper.UserMapper.getUserByUserId">
+		</association>
+		
+	</resultMap>
+	
+	<select id="selectSaleChanceALL" resultMap="saleChanceMap">
+		select sale_id,source,cus_name,title,rate,contact,tel,description,
+			create_id,create_date,allot_id,allot_date,state
+		from sal_chance
+		where 1=1
+		<if test="searchValue!=null and searchValue!=''">
+			and cus_name like #{searchValue} or contact like #{searchValue}
+		</if>
+		<if test="type=='chance'">
+			and state=1
+		</if>
+		<if test="type=='plan'">
+			and allot_id=#{userid}
+		</if>
+		limit ${currentPage},${pageNum}
+	</select>
+	
+	<select id="findSaleChanceById" resultMap="saleChanceMap">
+		select sale_id,source,cus_name,title,rate,contact,tel,description,
+			create_id,create_date,allot_id,allot_date,state
+		from sal_chance
+		where sale_id=#{sale_id}
+	</select>
+	
+	<select id="findSaleChanceCount" resultType="Integer">
+		select count(1) from sal_chance where 1=1
+		<if test="type=='chance'">
+			and state=1
+		</if>
+		<if test="type=='plan'">
+			and allot_id=#{userid}
+		</if>
+	</select>
+	
+	<select id="findSaleChanceCountByParam" resultType="Integer">
+		select count(1) from sal_chance
+		where 1=1
+		<if test="searchValue!=null and searchValue!=''">
+			and cus_name like #{searchValue} or contact like #{searchValue}
+		</if>
+		<if test="type=='chance'">
+			and state=1
+		</if>
+		<if test="type=='plan'">
+			and allot_id=#{userid}
+		</if>
+	</select>
+	
+	<insert id="insertSaleChance">
+		insert into sal_chance(source,cus_name,title,rate,contact,tel,description,create_id,create_date)
+		values(#{source},#{cus_name},#{title},#{rate},#{contact},#{tel},#{description},#{create.userid},#{create_date})
+	</insert>
+
+	<delete id="deleteSaleChance">
+		delete from pro_SaleChance where sale_id=#{sale_id}
+	</delete>	
+	
+	<update id="updateSaleChance">
+		update sal_chance set
+		source=#{source},
+		cus_name=#{cus_name},
+		title=#{title},
+		rate=#{rate},
+		contact=#{contact},
+		tel=#{tel},
+		description=#{description}
+		where sale_id=#{sale_id}
+	</update>
+	
+	<update id="dispatch">
+		update sal_chance set
+		allot_id=#{allot_id},
+		allot_date=#{allot_date},
+		state=2
+		where sale_id=#{sale_id}
+	</update>
+	
+	<update id="updateSaleChanceState">
+		update sal_chance set
+		state=#{state}
+		where sale_id=#{sale_id}
+	</update>
+</mapper>

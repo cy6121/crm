@@ -14,13 +14,10 @@ public class Role implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2395264574694708913L;
-	public static final String ROLE_STATE_OK = "1";
-	public static final String ROLE_STATE_DISABLE = "0";
 	
 	private Integer roleid;
 	private String rolename;
 	private String description;
-	private String state;
 	
 	public Integer getRoleid() {
 		return roleid;
@@ -38,13 +35,7 @@ public class Role implements Serializable{
 		return description;
 	}
 	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
+		this.description = description.trim();
 	}
 	
 }

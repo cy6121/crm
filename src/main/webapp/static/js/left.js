@@ -5,4 +5,5 @@ $(function() {
 	$("#"+title+"").addClass("active").siblings("li").removeClass("active");
 	//父级菜单的样式
 	$("#"+title+"").parents("li").addClass("open").addClass("active").siblings("li").removeClass("open").removeClass("active");
+
 });

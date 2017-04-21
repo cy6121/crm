@@ -15,11 +15,6 @@ public class User implements Serializable{
 	 * 序列化和反序列化的唯一标识
 	 */
 	private static final long serialVersionUID = 2778399131582102541L;
-	public static final String USER_STATE_OK = "1";
-	public static final String USER_STATE_DISABLE = "0";
-	public static final String SESSION_KEY = "curr_user";
-	public static final String AVAILABLE_URL = "available_url";
-	public static final String USER_ROLE = "curr_user_role";
 
 	private Integer userid;
 	private String username;

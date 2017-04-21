@@ -21,6 +21,13 @@
 
 	
     <mvc:annotation-driven/>
+    
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<bean class="com.swpu.interceptor.LoginInterceptor"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
 
     <!--静态资源配置-->
     <mvc:resources mapping="/static/**" location="/static/"/>
