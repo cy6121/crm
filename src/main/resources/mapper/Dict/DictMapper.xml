@@ -19,6 +19,13 @@
 		where dict_id=#{dictId}
 	</select>
 	
+	<select id="findDictByType" resultType="Dict">
+		select 
+		<include refid="base_column_list"></include>
+		from base_dict
+		where type=#{type}
+	</select>
+	
 	<insert id="insertDict">
 		insert into base_dict(type,item,value)
 		values(#{type},#{item},#{value})

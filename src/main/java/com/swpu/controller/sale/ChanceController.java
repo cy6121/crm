@@ -137,8 +137,10 @@ public class ChanceController {
 	public String finish(SaleChance saleChance,Integer allot_id){
 		Customer customer = new Customer();
 		Contact contact = new Contact();
+		User user = new User();
 		customer.setName(saleChance.getCus_name());
-		customer.setManager_id(allot_id);
+		user.setUserid(allot_id);
+		customer.setManager(user);
 		contact.setName(saleChance.getContact());
 		contact.setMobile(saleChance.getTel());
 		customerService.insertCustomer(saleChance,customer,contact);

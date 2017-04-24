@@ -33,16 +33,10 @@ public class CustomerServiceImpl implements CustomerService{
 	@Autowired 
 	private SaleChanceMapper saleChanceMapper;
 	
+	@Transactional
 	@Override
-	public List<Customer> selectCustomerById(Integer sale_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateCustomer(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-		
+	public void updateCustomer(Customer customer) {
+		customerMapper.updateCustomer(customer);
 	}
 
 	@Transactional
@@ -55,9 +49,23 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public void deletePlan(Integer plan_id) {
-		// TODO Auto-generated method stub
-		
+	public List<Customer> selectCustomerALL(Map<String, Object> param) {
+		return customerMapper.selectCustomerALL(param);
+	}
+
+	@Override
+	public Customer selectCustomerById(Integer cust_id) {
+		return customerMapper.selectCustomerById(cust_id);
+	}
+
+	@Override
+	public Integer findCustomerCount() {
+		return customerMapper.findCustomerCount();
+	}
+
+	@Override
+	public Integer findCustomerCountByParam(Map<String, Object> param) {
+		return customerMapper.findCustomerCountByParam(param);
 	}
 
 }

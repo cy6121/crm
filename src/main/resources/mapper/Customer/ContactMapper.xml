@@ -4,28 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swpu.mapper.ContactMapper">
 
-	<resultMap type="SalePlan" id="salePlanMap">
-		<id column="plan_id" property="plan_id"/>
-		<result column="sale_id" property="sale_id"/>
-		<result column="plan_date" property="plan_date"/>
-		<result column="plan_todo" property="plan_todo"/>
-		<result column="plan_result" property="plan_result"/>
+	<resultMap type="Contact" id="ContactMap">
+		<id column="contact_id" property="contact_id"/>
+		<result column="cust_id" property="cust_id"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="postion" property="postion"/>
+		<result column="tel" property="tel"/>
+		<result column="mobile" property="mobile"/>
+		<result column="memo" property="memo"/>
 	</resultMap>
 
-	<select id="selectSalePlanById" resultMap="salePlanMap">
-		select plan_id,sale_id,plan_date,plan_todo,plan_result
-		from sal_plan where sale_id=#{sale_id}
+	<select id="selectContactByCust" resultMap="ContactMap">
+		select contact_id,cust_id,name,sex,postion,tel,mobile,memo
+		from cst_contact where cust_id=#{cust_id}
 	</select>
 	
-	<update id="updateSalePlan">
-		update sal_plan set
-		<if test="type=='make'">
-		plan_todo=#{plan_todo}
-		</if>
-		<if test="type=='exec'">
-		plan_result=#{plan_result}
-		</if>
-		where plan_id=#{plan_id}
+	<select id="selectContactById" resultMap="ContactMap">
+		select contact_id,cust_id,name,sex,postion,tel,mobile,memo
+		from cst_contact where contact_id=#{contact_id}
+	</select>
+	
+	<update id="updateContact">
+		update cst_contact set
+		name=#{name},
+		sex=#{sex},
+		postion=#{postion},
+		tel=#{tel},
+		mobile=#{mobile},
+		memo=#{memo}
+		where contact_id=#{contact_id}
 	</update>
 	
 	<insert id="insertContact">
@@ -33,7 +41,7 @@
 		(#{cust_id},#{name},#{sex},#{postion},#{tel},#{mobile},#{memo})
 	</insert>
 	
-	<delete id="deletePlan">
-		delete from sal_plan where plan_id=#{plan_id}
+	<delete id="deleteContact">
+		delete from cst_contact where contact_id=#{contact_id}
 	</delete>
 </mapper>

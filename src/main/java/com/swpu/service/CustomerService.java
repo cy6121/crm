@@ -15,11 +15,15 @@ import com.swpu.entity.SaleChance;
 */
 public interface CustomerService {
 	
-	List<Customer> selectCustomerById(Integer sale_id);
+	List<Customer> selectCustomerALL(Map<String,Object> param);
 	
-	void updateCustomer(Map<String,Object> param);
+	Customer selectCustomerById(Integer cust_id);
+	
+	void updateCustomer(Customer customer);
 	
 	void insertCustomer(SaleChance saleChance,Customer customer,Contact contact);
 	
-	void deletePlan(Integer plan_id);
+	Integer findCustomerCount();
+	
+	Integer findCustomerCountByParam(Map<String,Object> param);
 }

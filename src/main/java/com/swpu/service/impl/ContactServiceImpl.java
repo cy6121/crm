@@ -1,7 +1,6 @@
 package com.swpu.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,28 +22,33 @@ public class ContactServiceImpl implements ContactService{
 	@Autowired
 	private ContactMapper contactMapper;
 	
+	@Transactional
 	@Override
-	public List<Contact> selectContactById(Integer sale_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateContact(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-		
+	public void updateContact(Contact contact) {
+		contactMapper.updateContact(contact);
 	}
 
 	@Transactional
 	@Override
-	public void insertContact(Contact Contact) {
-		contactMapper.insertContact(Contact);
+	public void insertContact(Contact contact) {
+		contactMapper.insertContact(contact);
 	}
 
 	@Override
-	public void deletePlan(Integer plan_id) {
-		// TODO Auto-generated method stub
-		
+	public List<Contact> selectContactByCust(Integer cust_id) {
+		return contactMapper.selectContactByCust(cust_id);
 	}
+
+	@Override
+	public Contact selectContactById(Integer contact_id) {
+		return contactMapper.selectContactById(contact_id);
+	}
+
+	@Transactional
+	@Override
+	public void deleteContact(Integer contact_id) {
+		contactMapper.deleteContact(contact_id);
+	}
+
 
 }

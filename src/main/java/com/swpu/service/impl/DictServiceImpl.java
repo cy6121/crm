@@ -50,4 +50,9 @@ public class DictServiceImpl implements DictService{
 		dictMapper.updateDict(dict);
 	}
 
+	@Override
+	public List<Dict> findDictByType(String type) {
+		return dictMapper.findDictByType(type);
+	}
+
 }

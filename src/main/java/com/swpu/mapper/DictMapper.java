@@ -25,5 +25,7 @@ public interface DictMapper {
 	
 	Dict findDictById(Integer dictId);
 	
+	List<Dict> findDictByType(String type);
+	
 	void updateDict(Dict dict);
 }

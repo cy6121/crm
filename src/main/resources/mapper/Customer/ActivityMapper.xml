@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.ActivityMapper">
+
+	<resultMap type="Activity" id="activityMap">
+		<id column="atv_id" property="atv_id"/>
+		<result column="cust_id" property="cust_id"/>
+		<result column="atv_date" property="atv_date"/>
+		<result column="place" property="place"/>
+		<result column="title" property="title"/>
+		<result column="description" property="description"/>
+	</resultMap>
+
+	<select id="selectActivityByCust" resultMap="activityMap">
+		select atv_id,cust_id,atv_date,place,title,description
+		from cst_activity where cust_id=#{cust_id}
+	</select>
+	
+	<select id="selectActivityById" resultMap="activityMap">
+		select atv_id,cust_id,atv_date,place,title,description
+		from cst_activity where atv_id=#{atv_id}
+	</select>
+	
+	<update id="updateActivity">
+		update cst_activity set
+		atv_date=#{atv_date},
+		place=#{place},
+		title=#{title},
+		description=#{description}
+		where atv_id=#{atv_id}
+	</update>
+	
+	<insert id="insertActivity">
+		insert into cst_activity(cust_id,atv_date,place,title,description)
+		values(#{cust_id},#{atv_date},#{place},#{title},#{description})
+	</insert>
+	
+	<delete id="deleteActivity">
+		delete from cst_activity where atv_id=#{atv_id}
+	</delete>
+</mapper>

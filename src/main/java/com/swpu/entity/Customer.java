@@ -9,7 +9,7 @@ public class Customer {
 	private Integer cust_id;
 	private String name;//客户名称
 	private String region;//地区
-	private Integer manager_id;//客户经理编号
+	private User manager;//客户经理
 	private String level;//客户等级
 	private String satisfy;//客户满意度
 	private String credit;//客户信用度
@@ -18,7 +18,7 @@ public class Customer {
 	private String tel;//客户电话
 	private String fax;//客户传真
 	private String website;//客户网址
-	private String lincence_no;//营业执照注册号/统一社会信用代码
+	private String licence_no;//营业执照注册号/统一社会信用代码
 	private String chieftain;//法人
 	private String bankroll;//注册资金
 	private String turnover;//年营业额
@@ -43,11 +43,11 @@ public class Customer {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	public Integer getManager_id() {
-		return manager_id;
+	public User getManager() {
+		return manager;
 	}
-	public void setManager_id(Integer manager_id) {
-		this.manager_id = manager_id;
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 	public String getLevel() {
 		return level;
@@ -97,11 +97,11 @@ public class Customer {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	public String getLincence_no() {
-		return lincence_no;
+	public String getLicence_no() {
+		return licence_no;
 	}
-	public void setLincence_no(String lincence_no) {
-		this.lincence_no = lincence_no;
+	public void setLicence_no(String licence_no) {
+		this.licence_no = licence_no;
 	}
 	public String getChieftain() {
 		return chieftain;
@@ -139,4 +139,5 @@ public class Customer {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
 }

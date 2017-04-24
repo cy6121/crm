@@ -13,11 +13,15 @@ import com.swpu.entity.Customer;
 */
 public interface CustomerMapper {
 	
-	List<Customer> selectCustomerById(Integer sale_id);
+	List<Customer> selectCustomerALL(Map<String,Object> param);
 	
-	void updateCustomer(Map<String,Object> param);
+	Customer selectCustomerById(Integer cust_id);
 	
-	void insertCustomer(Customer Customer);
+	void updateCustomer(Customer customer);
 	
-	void deletePlan(Integer plan_id);
+	void insertCustomer(Customer customer);
+	
+	Integer findCustomerCount();
+	
+	Integer findCustomerCountByParam(Map<String,Object> param);
 }

@@ -11,7 +11,7 @@
 	<select id="getUserByName" resultMap="userMap2">
 		select <include refid="Base_Column_List" /> 
 		from sys_user
-		where username=#{username} or name=#{username}
+		where username=#{username} or name like concat('% ',#{username},' %')
 	</select>
 	
 	<select id="getUserByUserId" resultMap="userMap2">

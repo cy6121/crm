@@ -20,4 +20,6 @@ public interface DictService {
 	Dict findDictById(Integer dictId);
 	
 	void updateDict(Dict dict);
+	
+	List<Dict> findDictByType(String type);
 }

@@ -100,7 +100,7 @@
 			$("#description").val(result.description);
 			state=result.state;
 		}).fail(function() {
-			Dialog.alert("修改异常");
+			
 		});
 		
 		$("#editModal").modal("show");

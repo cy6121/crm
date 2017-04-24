@@ -1,7 +1,6 @@
 package com.swpu.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import com.swpu.entity.Contact;
 
@@ -13,11 +12,13 @@ import com.swpu.entity.Contact;
 */
 public interface ContactMapper {
 	
-	List<Contact> selectContactById(Integer sale_id);
+	List<Contact> selectContactByCust(Integer cust_id);
 	
-	void updateContact(Map<String,Object> param);
+	Contact selectContactById(Integer contact_id);
 	
-	void insertContact(Contact Contact);
+	void updateContact(Contact contact);
 	
-	void deletePlan(Integer plan_id);
+	void insertContact(Contact contact);
+	
+	void deleteContact(Integer contact_id);
 }

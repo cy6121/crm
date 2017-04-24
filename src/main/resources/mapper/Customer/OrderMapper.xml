@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.OrderMapper">
+
+	<resultMap type="Order" id="orderMap">
+		<id column="odr_id" property="odr_id"/>
+		<result column="cust_id" property="cust_id"/>
+		<result column="odr_date" property="odr_date"/>
+		<result column="address" property="address"/>
+		<result column="state" property="state"/>
+	</resultMap>
+	
+	<resultMap type="OrderItem" id="orderItemMap">
+		<id column="odd_id" property="odd_id"/>
+		<result column="order_id" property="order_id"/>
+		<result column="count" property="count"/>
+		<result column="price" property="price"/>
+		<association property="product" column="prod_id"
+			select="com.swpu.mapper.ProductMapper.findProductById">
+		</association>
+	</resultMap>
+
+	<select id="selectOrderByCust" resultMap="orderMap">
+		select odr_id,cust_id,odr_date,address,state
+		from cst_order where cust_id=#{cust_id}
+	</select>
+	
+	<select id="selectOrderById" resultMap="orderMap">
+		select odr_id,cust_id,odr_date,address,state
+		from cst_order where odr_id=#{odr_id}
+	</select>
+	
+	<select id="selectOrderItemById" resultMap="orderItemMap">
+		select odd_id,order_id,prod_id,count,price
+		from order_item where order_id=#{order_id}
+	</select>
+	
+</mapper>

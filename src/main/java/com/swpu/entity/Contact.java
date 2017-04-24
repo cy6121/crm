@@ -60,6 +60,6 @@ public class Contact {
 		return memo;
 	}
 	public void setMemo(String memo) {
-		this.memo = memo;
+		this.memo = memo.trim();
 	}
 }
