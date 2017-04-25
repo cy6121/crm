@@ -64,6 +64,8 @@ public class CustomerController {
         	User manager = userService.getUserByName(manager_name);
         	if (manager!=null) {
 				param.put("manager_id",manager.getUserid());
+			}else{
+				param.put("manager_id"," ");
 			}
 		}
 		param.put("currentPage",currentPage);

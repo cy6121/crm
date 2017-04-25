@@ -31,9 +31,10 @@
 								<td><input type="text" id="search_cust_name" placeholder="客户名称"/></td>
 								<td><input type="text" id="search_manager_name" placeholder="客户经理"/></td>
 								<td><select id="search_state">
-										<option value="">状态</option>
+										<option value="">请选择状态</option>
 										<option value="1">正常</option>
-										<option value="2">流失</option>
+										<option value="2">流失预警</option>
+										<option value="3">流失</option>
 									</select>
 								</td>
 								<td><button id="searchBtn" class="btn btn-purple btn-sm pull-left">搜索</button></td>
@@ -112,6 +113,8 @@
 							if(row.state=="1"){
 								return "<span class='label label-success'>正常</span>";
 							}else if(row.state=="2"){
+								return "<span class='label label-warning'>流失预警</span>";
+							}else if(row.state=="3"){
 								return "<span class='label label-danger'>流失</span>";
 							}
 						}},

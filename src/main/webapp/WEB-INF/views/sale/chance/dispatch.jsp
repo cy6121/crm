@@ -71,9 +71,9 @@
 						<div class="col-sm-9">
 							<select class="form-control" name="allot_id" id="allot_id">
 								<option value="">请选择</option>
-								<c:if test="${not empty userList}">
-									<c:forEach items="${userList}" var="user">
-										<option value="${user.userid}">${user.name}</option>
+								<c:if test="${not empty managerList}">
+									<c:forEach items="${managerList}" var="manager">
+										<option value="${manager.userid}">${manager.name}</option>
 									</c:forEach>
 								</c:if>
 							</select>

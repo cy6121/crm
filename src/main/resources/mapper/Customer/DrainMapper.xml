@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.DrainMapper">
+
+	<resultMap type="Drain" id="drainMap">
+		<id column="drain_id" property="drain_id"/>
+		<result column="last_order_date" property="last_order_date"/>
+		<result column="lost_date" property="lost_date"/>
+		<result column="delay" property="delay"/>
+		<result column="reason" property="reason"/>
+		<result column="state" property="state"/>
+		<association property="customer" column="cust_id" select="com.swpu.mapper.CustomerMapper.selectCustomerById"> 
+		</association>
+	</resultMap>
+
+	<sql id="base_column_list">
+		drain_id,cust_id,manager_id,last_order_date,lost_date,delay,reason,state
+	</sql>
+
+	<select id="selectDrainALL" resultMap="drainMap">
+		select <include refid="base_column_list"></include>
+		from cst_drain
+		where 1=1
+		<if test="manager_id!=null and manager_id!=''">
+			and manager_id=#{manager_id}
+		</if>
+		<if test="cust_id!=null and cust_id!=''">
+			and cust_id=#{cust_id}
+		</if>
+		<if test="state!=null and state!=''">
+			and state=#{state}
+		</if>
+		limit ${currentPage},${pageNum}
+	</select>
+	
+	<select id="selectDrainById" resultMap="drainMap">
+		select <include refid="base_column_list"></include>
+		from cst_drain where drain_id=#{drain_id}
+	</select>
+	
+	<select id="findDrainCount" resultType="Integer">
+		select count(drain_id) from cst_drain
+	</select>
+	
+	<select id="findDrainCountByParam" resultType="Integer">
+		select count(drain_id) from cst_drain
+		where 1=1
+		<if test="manager_id!=null and manager_id!=''">
+			and manager_id=#{manager_id}
+		</if>
+		<if test="cust_id!=null and cust_id!=''">
+			and cust_id=#{cust_id}
+		</if>
+		<if test="state!=null and state!=''">
+			and state=#{state}
+		</if>
+	</select>
+	
+	<update id="updateDrain">
+		update cst_drain set
+		<if test='state=="1"'>
+			delay=#{delay},
+		</if>
+		<if test='state=="2"'>
+			lost_date=sysdate(),
+			reason=#{reason},
+		</if>
+		state=#{state}
+		where drain_id=#{drain_id}
+	</update>
+	
+	<insert id="insertDrain">
+		insert into cst_drain(cust_id,manager_id,last_order_date)
+		select t1.cust_id,t2.manager_id,max(odr_date) odr_date
+		from cst_order t1,cst_customer t2,cst_drain t3
+		where TIMESTAMPDIFF(MONTH,odr_date,SYSDATE())>6
+		and t1.cust_id=t2.cust_id
+		and t1.cust_id not in (select cust_id from cst_drain)
+		group by cust_id;
+	</insert>
+	
+</mapper>

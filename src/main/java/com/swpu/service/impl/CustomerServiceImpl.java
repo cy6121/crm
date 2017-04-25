@@ -12,6 +12,7 @@ import com.swpu.entity.Customer;
 import com.swpu.entity.SaleChance;
 import com.swpu.mapper.ContactMapper;
 import com.swpu.mapper.CustomerMapper;
+import com.swpu.mapper.DrainMapper;
 import com.swpu.mapper.SaleChanceMapper;
 import com.swpu.service.CustomerService;
 
@@ -32,6 +33,8 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired 
 	private SaleChanceMapper saleChanceMapper;
+	
+	@Autowired DrainMapper drainMapper;
 	
 	@Transactional
 	@Override
@@ -66,6 +69,18 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public Integer findCustomerCountByParam(Map<String, Object> param) {
 		return customerMapper.findCustomerCountByParam(param);
+	}
+
+	@Transactional
+	@Override
+	public void CustomerLostWarning() {
+		customerMapper.CustomerLostWarning();
+		drainMapper.insertDrain();
+	}
+
+	@Override
+	public Customer selectCustomerByName(String name) {
+		return customerMapper.selectCustomerByName(name);
 	}
 
 }

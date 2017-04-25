@@ -53,8 +53,8 @@ public class ChanceController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String chance(Model model) {
-		List<User> userList = userService.getUserByUserRole("客户经理");
-		model.addAttribute("userList",userList);
+		List<User> managerList = userService.getUserByUserRole("客户经理");
+		model.addAttribute("managerList",managerList);
 		return "sale/chance/list";
 	}
 	

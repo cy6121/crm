@@ -30,9 +30,13 @@
 		
 	</resultMap>
 
-	<select id="selectCustomerALL" resultMap="CustomerMap">
-		select cust_id,name,region,manager_id,level,satisfy,credit,address,zip,tel,fax,
+	<sql id="base_column_list">
+		cust_id,name,region,manager_id,level,satisfy,credit,address,zip,tel,fax,
 		website,licence_no,chieftain,bankroll,turnover,bank,bank_account,state
+	</sql>
+
+	<select id="selectCustomerALL" resultMap="CustomerMap">
+		select <include refid="base_column_list"></include>
 		from cst_customer
 		where 1=1
 		<if test="manager_id!=null and manager_id!=''">
@@ -48,10 +52,15 @@
 	</select>
 
 	<select id="selectCustomerById" resultMap="CustomerMap">
-		select cust_id,name,region,manager_id,level,satisfy,credit,address,zip,tel,fax,
-		website,licence_no,chieftain,bankroll,turnover,bank,bank_account,state
+		select <include refid="base_column_list"></include>
 		from cst_customer
 		where cust_id=#{cust_id}
+	</select>
+	
+	<select id="selectCustomerByName" resultMap="CustomerMap">
+		select <include refid="base_column_list"></include>
+		from cst_customer
+		where name=#{name}
 	</select>
 	
 	<select id="findCustomerCount" resultType="Integer">
@@ -96,5 +105,14 @@
 		insert into cst_customer(name,manager_id)values
 		(#{name},#{manager.userid})
 	</insert>
+	
+	<update id="CustomerLostWarning">
+		update cst_customer set 
+		state='2'
+		where cust_id in 
+			(select DISTINCT cust_id
+			from cst_order
+			where TIMESTAMPDIFF(MONTH,odr_date,SYSDATE())>6)
+	</update>
 	
 </mapper>

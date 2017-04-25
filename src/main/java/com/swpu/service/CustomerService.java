@@ -19,7 +19,11 @@ public interface CustomerService {
 	
 	Customer selectCustomerById(Integer cust_id);
 	
+	Customer selectCustomerByName(String name);
+	
 	void updateCustomer(Customer customer);
+	
+	void CustomerLostWarning();
 	
 	void insertCustomer(SaleChance saleChance,Customer customer,Contact contact);
 	
