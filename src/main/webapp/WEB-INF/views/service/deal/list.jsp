@@ -3,14 +3,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>客户开发计划</title>
+<title>服务处理</title>
 <%@ include file="/WEB-INF/views/include/top.jsp"%>
-<link rel="stylesheet"
-	href="${ctxStatic}/assets/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="${ctxStatic}/assets/css/dataTables.bootstrap.min.css" />
+</head>
 <script type="text/javascript">
 	var dataTable;
 </script>
-</head>
 <body>
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<%@ include file="/WEB-INF/views/include/left.jsp"%>
@@ -18,11 +17,32 @@
 		<div class="app-content-body">
 			<div class="breadcrumbs">
 				<ul class="breadcrumb">
-					<li><i class="icon-home home-icon"></i>营销管理</li>
-					<li class="active">客户开发计划</li>
+					<li><i class="icon-home home-icon"></i>服务管理</li>
+					<li class="active">服务处理</li>
 				</ul>
 			</div>
 			<div class="page-content">
+				<div id="sample-table-2_wrapper" class="dataTables_wrapper"
+					role="grid">
+					<div class="row">
+						<table>
+							<tr>
+								<td><input type="text" id="search_cust_name" placeholder="客户名称"/></td>
+								<td><input type="text" id="search_title" placeholder="概要"/></td>
+								<td><select id="search_type">
+										<option value="">请选择服务类型</option>
+										<c:if test="${not empty serviceTypes}">
+											<c:forEach items="${serviceTypes}" var="type">
+												<option value="${type.item}">${type.item}</option>
+											</c:forEach>
+										</c:if>
+									</select>
+								</td>
+								<td><button id="searchBtn" class="btn btn-purple btn-sm pull-left">搜索</button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 
 				<div class="row">
 					<div class="col-sm-12">
@@ -30,13 +50,13 @@
 							class="table table-striped table-bordered table-hover dataTable">
 							<thead>
 								<tr>
-									<th width="60px">编号</th>
+									<th width="80px">编号</th>
 									<th>客户名称</th>
-									<th>联系人</th>
-									<th>联系人电话</th>
-									<th>创建时间</th>
+									<th>概要</th>
+									<th>服务类型</th>
+									<th>创建人</th>
+									<th>创建日期</th>
 									<th>分配给</th>
-									<th>状态</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -61,46 +81,43 @@
 		</div>
 	</div>
 
+	<%@include file="deal.jsp" %>
+
 	<script src="${ctxStatic}/assets/js/bootstrap.min.js"></script>
 	<script src="${ctxStatic}/assets/js/ace.min.js"></script>
 	<script src="${ctxStatic}/js/left.js"></script>
 	<script src="${ctxStatic}/assets/js/jquery.dataTables.min.js"></script>
 	<script src="${ctxStatic}/assets/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
-		
+	
 	$(function() {
 		dataTable = $("#dataTable").DataTable({
 			"processing" : true,
 			"serverSide" : true, //服务端处理
 			"ordering" : false,//不排序
-			"order":[[0,'desc']],//默认排序方式
+			"searching":false,//不使用自带的搜索
+			"order":[[1,'desc']],//默认排序方式
             "lengthMenu":[10,25,50,100],//每页显示数据条数菜单
-            "searchDelay": 1500,//搜索延迟
 			"ajax" : {
-				url : "${ctx}/sale/plan/datas.json", //获取数据的URL
-				type : "get"//获取数据的方式
+				url : "${ctx}/service/datas.json", //获取数据的URL
+				type : "get",//获取数据的方式
+				data :function(data){
+					data.cust_name = $("#search_cust_name").val();
+					data.title = $("#search_title").val();
+					data.type = $("#search_type").val();
+					data.state = '2';
+				}
 			},
 			"columns" : [ //返回的JSON中的对象和列的对应关系
-					{"data" : "sale_id"},
-					{"data" : "cus_name"},
-					{"data" : "contact"},
-					{"data" : "tel"},
+					{"data" : "svr_id"},
+					{"data" : "customer.name"},
+					{"data" : "title"},
+					{"data" : "type"},
+					{"data" : "create.name"},
 					{"data" : "create_date"},
 					{"data" : "allot.name"},
-					{"data" : function(row){
-						if(row.state=="2"){
-							return "<span class='label label-info'>开发中</span>";
-						}else if(row.state=="3"){
-							return "<span class='label label-success'>开发成功</span>";
-						}else if(row.state=="4"){
-							return "<span class='label label-danger'>开发失败</span>";
-						}
-					}},
 					{"data" : function(row) {
-						if(row.state!="2"){
-							return "<div class='pull-left action-buttons'><a href='${ctx}/sale/chance/detail?sale_id="+row.sale_id+"' style='text-decoration: none;' class='blue'><i class='icon-zoom-in bigger-110'></i></a></div>";
-						}
-						return "<div class='pull-left action-buttons'><a href='${ctx}/sale/plan/make?sale_id="+row.sale_id+"' style='text-decoration: none;' class='green'><i class='icon-book bigger-110'></i></a> <a href='${ctx}/sale/plan/exec?sale_id="+row.sale_id+"' style='text-decoration: none;' class='blue' data-id='"+row.sale_id+"'><i class='icon-bookmark bigger-110'></i></a></div>";
+						return "<div class='pull-left action-buttons'><a href='javascript:;' onclick='deal("+row.svr_id+")' style='text-decoration: none;' class='blue'><i class='icon-edit bigger-110'></i></a> </div>";
 					}}],
 			"language" : {
 				"lengthMenu":"每页显示 _MENU_ 条记录",
@@ -119,6 +136,12 @@
 			}
 		});
 
+		 //自定义搜索
+        $("#searchBtn").click(function(){
+        	dataTable.draw(); // DataTables会自动的执行查询
+        });
+
+		
 	});
 	</script>
 </body>

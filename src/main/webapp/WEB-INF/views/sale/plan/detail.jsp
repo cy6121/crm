@@ -55,13 +55,6 @@
 									</div>
 									
 									<div class="profile-info-row">
-										<div class="profile-info-name">客户名称</div>
-										<div class="profile-info-value">
-											<span name="cus_name">${saleChance.cus_name}</span>
-										</div>
-									</div>
-									
-									<div class="profile-info-row">
 										<div class="profile-info-name">成功概率(%)</div>
 										<div class="profile-info-value">
 											<span name="rate">${saleChance.rate}</span>

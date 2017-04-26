@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.CustServiceMapper">
+
+	<resultMap type="CstService" id="serviceMap">
+		<id column="svr_id" property="svr_id"/>
+		<result column="type" property="type"/>
+		<result column="title" property="title"/>
+		<result column="state" property="state"/>
+		<result column="request" property="request"/>
+		<result column="create_date" property="create_date"/>
+		<result column="allot_date" property="allot_date"/>
+		<result column="deal_date" property="deal_date"/>
+		<result column="deal" property="deal"/>
+		<result column="result" property="result"/>
+		<result column="satisfy" property="satisfy"/>
+		<association property="customer" column="cust_id" select="com.swpu.mapper.CustomerMapper.selectCustomerById"> 
+		</association>
+		<association property="create" column="create_id" select="com.swpu.mapper.UserMapper.getUserByUserId"> 
+		</association>
+		<association property="allot" column="allot_id" select="com.swpu.mapper.UserMapper.getUserByUserId"> 
+		</association>
+	</resultMap>
+
+	<sql id="base_column_list">
+		svr_id,cust_id,type,title,state,request,create_id,create_date,allot_id,allot_date,deal,deal_date,result,satisfy
+	</sql>
+
+	<select id="selectServiceALL" resultMap="serviceMap">
+		select <include refid="base_column_list"></include>
+		from cst_service
+		where 1=1
+		<if test="type!=null and type!=''">
+			and type=#{type}
+		</if>
+		<if test="cust_id!=null and cust_id!=''">
+			and cust_id=#{cust_id}
+		</if>
+		<if test="state!=null and state!=''">
+			and state=#{state}
+		</if>
+		<if test="title!=null and title!=''">
+			and title like concat('% ',#{title},' %')
+		</if>
+		limit ${currentPage},${pageNum}
+	</select>
+	
+	<select id="selectServiceById" resultMap="serviceMap">
+		select <include refid="base_column_list"></include>
+		from cst_service where svr_id=#{svr_id}
+	</select>
+	
+	<select id="findServiceCount" resultType="Integer">
+		select count(svr_id) from cst_service 
+		<if test="state!=null and state!=''">
+		where state=#{state}
+		</if>
+	</select>
+	
+	<select id="findServiceCountByParam" resultType="Integer">
+		select count(svr_id) from cst_service
+		where 1=1
+		<if test="type!=null and type!=''">
+			and type=#{type}
+		</if>
+		<if test="cust_id!=null and cust_id!=''">
+			and cust_id=#{cust_id}
+		</if>
+		<if test="state!=null and state!=''">
+			and state=#{state}
+		</if>
+	</select>
+	
+	<insert id="insertService">
+		insert into cst_service(cust_id,type,title,request,create_id,create_date)
+		values(#{cust_id},#{type},#{title},#{request},#{create_id},sysdate())
+	</insert>
+	
+	<update id="dispatch">
+		update cst_service set 
+		allot_id = #{allot_id},
+		state = '2',
+		allot_date = sysdate()
+		where svr_id = #{svr_id}
+	</update>
+	
+	<update id="deal">
+		update cst_service set 
+		deal = #{deal},
+		deal_date = sysdate(),
+		state = '3'
+		where svr_id = #{svr_id}
+	</update>
+	
+	<update id="feedback">
+		update cst_service set 
+		<if test="command!=null and command=='archive'">
+			result = #{result},
+			satisfy = #{satisfy},
+			state = '4'
+		</if>
+		<if test="command!=null and command=='redeal'">
+			state = '2'
+		</if>
+		where svr_id = #{svr_id}
+	</update>
+	
+	<delete id="deleteService">
+		delete from cst_service where svr_id = #{svr_id}
+	</delete>
+</mapper>

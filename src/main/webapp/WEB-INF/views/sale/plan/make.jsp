@@ -55,13 +55,6 @@
 									</div>
 									
 									<div class="profile-info-row">
-										<div class="profile-info-name">客户名称</div>
-										<div class="profile-info-value">
-											<span name="cus_name">${saleChance.cus_name}</span>
-										</div>
-									</div>
-									
-									<div class="profile-info-row">
 										<div class="profile-info-name">成功概率(%)</div>
 										<div class="profile-info-value">
 											<span name="rate">${saleChance.rate}</span>
@@ -212,6 +205,11 @@
 	<script type="text/javascript">
 	
 	function editPlan(plan_id){
+		if (${saleChance.allot.userid}!=${curr_user.userid}) {
+			Dialog.alert("你没有权限执行该请求");
+			return;
+		}
+		
 		var url = "${ctx}/sale/plan/edit";
 		var agrs = {"plan_id":plan_id,"plan_todo":$("#plan_todo-"+plan_id).val(),"type":"make"};
 		$.post(url,agrs).done(function(result){
@@ -226,6 +224,11 @@
 	}
 	
 	function deletePlan(plan_id){
+		if (${saleChance.allot.userid}!=${curr_user.userid}) {
+			Dialog.alert("你没有权限执行该请求");
+			return;
+		}
+		
 		var url = "${ctx}/sale/plan/del";
 		var agrs = {"plan_id":plan_id};
 		$.post(url,agrs).done(function(result){
@@ -243,6 +246,11 @@
 	
 	$(function() {
 		$("#saveBtn").click(function() {
+			if (${saleChance.allot.userid}!=${curr_user.userid}) {
+				Dialog.alert("你没有权限执行该请求");
+				return;
+			}
+			
 			var plan_date = $("#plan_date").val();
 			var plan_todo = $("#plan_todo").val();
 			var url = "${ctx}/sale/plan/make";

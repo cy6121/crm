@@ -55,13 +55,6 @@
 									</div>
 									
 									<div class="profile-info-row">
-										<div class="profile-info-name">客户名称</div>
-										<div class="profile-info-value">
-											<span name="cus_name">${saleChance.cus_name}</span>
-										</div>
-									</div>
-									
-									<div class="profile-info-row">
 										<div class="profile-info-name">成功概率(%)</div>
 										<div class="profile-info-value">
 											<span name="rate">${saleChance.rate}</span>
@@ -192,6 +185,11 @@
 	<script type="text/javascript">
 	
 	function editPlan(plan_id){
+		if (${saleChance.allot.userid}!=${curr_user.userid}) {
+			Dialog.alert("你没有权限执行该请求");
+			return;
+		}
+		
 		var url = "${ctx}/sale/plan/edit";
 		var agrs = {"plan_id":plan_id,"plan_result":$("#plan_result-"+plan_id).val(),"type":"exec"};
 		$.post(url,agrs).done(function(result){
@@ -207,6 +205,11 @@
 	
 	$(function(){
 		$("#finishBtn").click(function() {
+			if (${saleChance.allot.userid}!=${curr_user.userid}) {
+				Dialog.alert("你没有权限执行该请求");
+				return;
+			}
+			
 			var url = "${ctx}/sale/chance/finish";
 			var args = {"sale_id" : "${saleChance.sale_id}","cus_name":"${saleChance.cus_name}",
 						"contact":"${saleChance.contact}","tel":"${saleChance.tel}",
@@ -222,6 +225,11 @@
 		});
 		
 		$("#stopBtn").click(function() {
+			if (${saleChance.allot.userid}!=${curr_user.userid}) {
+				Dialog.alert("你没有权限执行该请求");
+				return;
+			}
+			
 			$.post("${ctx}/sale/chance/stop", {
 				"sale_id" : ${saleChance.sale_id}
 			}).done(function(result) {

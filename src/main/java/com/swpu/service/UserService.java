@@ -71,4 +71,5 @@ public interface UserService {
 	void delUser(Integer userid);
 	
 	List<User> getUserByUserRole(String rolename);
+	
 }

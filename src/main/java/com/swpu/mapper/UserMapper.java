@@ -80,4 +80,5 @@ public interface UserMapper {
 	void delUser(Integer userid);
 	
 	List<User> getUserByUserRole(String rolename);
+	
 }

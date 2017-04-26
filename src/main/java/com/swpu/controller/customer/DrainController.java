@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,26 +54,26 @@ public class DrainController {
         Integer currentPage = Integer.valueOf(request.getParameter("start"));
         //页面最大显示记录数
         Integer pageNum = Integer.valueOf(request.getParameter("length"));
-        String cust_name = request.getParameter("cust_name").trim();
-        String manager_name = request.getParameter("manager_name").trim();
+        String cust_name = request.getParameter("cust_name");
+        String manager_name = request.getParameter("manager_name");
         String state = request.getParameter("state");
         
         Map<String,Object> param = Maps.newHashMap();
-        if (!cust_name.equals("")) {
+        if (!StringUtils.isEmpty(cust_name)) {
         	Customer customer = customerService.selectCustomerByName(cust_name);
         	if (customer!=null) {
     			param.put("cust_id",customer.getCust_id());
     		}else{
-				param.put("cust_id"," ");
-			}
+    			param.put("cust_id"," ");
+    		}
 		}
-		if (!manager_name.equals("")) {
-			User manager = userService.getUserByName(manager_name);
-	    	if (manager!=null) {
-				param.put("manager_id",manager.getUserid());
-			}else{
-				param.put("manager_id"," ");
-			}
+        if (!StringUtils.isEmpty(manager_name)) {
+        	User manager = userService.getUserByName(manager_name);
+        	if (manager!=null) {
+    			param.put("manager_id",manager.getUserid());
+    		}else{
+    			param.put("manager_id"," ");
+    		}
 		}
     	
 		param.put("currentPage",currentPage);
