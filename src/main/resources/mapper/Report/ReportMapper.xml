@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swpu.mapper.ReportMapper">
+
+	<select id="selectConsistByType" resultType="java.util.HashMap">
+		select t1.item,count(t2.cust_id) count
+		from base_dict t1
+		left join cst_customer t2
+		<if test='type!=null and type=="客户等级"'>
+			on t1.item = t2.level
+		</if>
+		<if test='type!=null and type=="客户信用度"'>
+			on t1.item = t2.credit
+		</if>
+		<if test='type!=null and type=="客户满意度"'>
+			on t1.item = t2.satisfy
+		</if>
+		where t1.type=#{type}
+		group by t1.item;
+	</select>
+	
+	<select id="selectPayByParam" resultType="java.util.HashMap">
+		select t1.name,sum(t3.price) price
+		from cst_customer t1,cst_order t2,order_item t3
+		where t1.cust_id=t2.cust_id
+		and t2.odr_id=t3.order_id
+		<if test='cust_id!=null and cust_id!=""'>
+			and t1.cust_id = #{cust_id}
+		</if>
+		<if test='date1!=null and date1!=""'>
+			and t2.odr_date <![CDATA[ >= ]]> #{date1}
+		</if>
+		<if test='date2!=null and date2!=""'>
+			and t2.odr_date <![CDATA[ <= ]]> #{date2}
+		</if>
+		group by t1.cust_id
+		order by price desc
+		limit ${currentPage},${pageNum}
+	</select>
+	
+	<select id="selectPayCount" resultType="Integer">
+		select count(DISTINCT t1.cust_id)
+		from cst_customer t1,cst_order t2,order_item t3
+		where t1.cust_id=t2.cust_id
+		and t2.odr_id=t3.order_id
+		order by price desc
+	</select>
+	
+	<select id="selectPayCountByParam" resultType="Integer">
+		select count(DISTINCT t1.cust_id)
+		from cst_customer t1,cst_order t2,order_item t3
+		where t1.cust_id=t2.cust_id
+		and t2.odr_id=t3.order_id
+		<if test='cust_id!=null and cust_id!=""'>
+			and t1.cust_id = #{cust_id}
+		</if>
+		<if test='date1!=null and date1!=""'>
+			and t2.odr_date <![CDATA[ >= ]]> #{date1}
+		</if>
+		<if test='date2!=null and date2!=""'>
+			and t2.odr_date <![CDATA[ <= ]]> #{date2}
+		</if>
+		order by price desc
+	</select>
+	
+	<select id="selectServiceByParam" resultType="java.util.HashMap">
+		select t1.item,count(t2.svr_id) count
+		from base_dict t1
+		left join cst_service t2
+		on t1.item = t2.type
+		where t1.type='服务类型'
+		<if test='date1!=null and date1!=""'>
+			and t2.create_date <![CDATA[ >= ]]> #{date1}
+		</if>
+		<if test='date2!=null and date2!=""'>
+			and t2.create_date <![CDATA[ <= ]]> #{date2}
+		</if>
+		group by t1.item;
+	</select>
+</mapper>

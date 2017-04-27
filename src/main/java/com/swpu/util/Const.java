@@ -1,4 +1,5 @@
 package com.swpu.util;
+
 /** 
 * @author  cy
 * @createDate 2017年4月8日 下午10:42:47 
@@ -15,4 +16,5 @@ public class Const {
 	public static final String AuthType_Menu = "menu";		//授权类型:菜单类型
 	public static final String AuthType_Permission = "permission";//授权类型:权限类型
 	public static final String NO_INTERCEPTOR_PATH = ".*/((login)|(logout)|(static)|(plugins)).*";
+
 }

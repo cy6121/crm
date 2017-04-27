@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>客户管理</title>
+<title>客户流失管理</title>
 <%@ include file="/WEB-INF/views/include/top.jsp"%>
 <link rel="stylesheet"
 	href="${ctxStatic}/assets/css/dataTables.bootstrap.min.css" />

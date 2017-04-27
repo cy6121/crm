@@ -22,13 +22,6 @@
 	
     <mvc:annotation-driven/>
     
-    <mvc:interceptors>
-    	<mvc:interceptor>
-    		<mvc:mapping path="/**"/>
-    		<bean class="com.swpu.interceptor.LoginInterceptor"></bean>
-    	</mvc:interceptor>
-    </mvc:interceptors>
-
     <!--静态资源配置-->
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/plugins/**" location="/plugins/"/>
@@ -39,11 +32,5 @@
         <property name="suffix" value=".jsp"/>
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
     </bean>
-
-    <!--文件上传解析器-->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="100000000"/>
-    </bean>
-
 
 </beans>

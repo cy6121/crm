@@ -25,6 +25,7 @@
         -->
             <value>
                 /static/** = anon
+                /plugins/** = anon
                 /** = authc
             </value>
         </property>

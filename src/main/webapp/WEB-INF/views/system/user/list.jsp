@@ -40,7 +40,7 @@
 							class="table table-striped table-bordered table-hover dataTable">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>序号</th>
 									<th>用户名</th>
 									<th>姓名</th>
 									<th>电话</th>
@@ -86,14 +86,14 @@
 				"serverSide":true, //服务端处理
 				"scrollY":"400px",
 				"searchDelay": 1500,//搜索延迟
-	            "order":[[0,'asc']],//默认排序方式
+	            "order":[[1,'asc']],//默认排序方式
 	            "lengthMenu":[10,25,50,100],//每页显示数据条数菜单
 	            "ajax":{
 	                url:"${ctx}/system/user/datas.json", //获取数据的URL
 	                type:"get" //获取数据的方式
 	            },
 	            "columns":[  //返回的JSON中的对象和列的对应关系
-	                {"data":"userid"},
+	                {"data":null},
 	                {"data":"username"},
 	                {"data":"name"},
 	                {"data":"phone"},
@@ -118,12 +118,9 @@
 	                }}
 	            ],
 	            "columnDefs":[ //具体列的定义
+	                
 	                {
-	                    "targets":[0],
-	                    "visible":false
-	                },
-	                {
-	                    "targets":[5,6,7],
+	                    "targets":[0,5,6,7],
 	                    "orderable":false
 	                }
 	            ],
@@ -141,7 +138,15 @@
 	                    "next":       "下一页",
 	                    "previous":   "上一页"
 	                }
-	            }
+	            },
+	            "drawCallback" : function() { // 序号列
+	            	var api = this.api();
+	            	var startIndex = api.context[0]._iDisplayStart; // 获取本页开始的条数
+	            	api.column(0).nodes().each(function(cell, i) {
+	            	cell.innerHTML = startIndex + i + 1;
+	            	});
+            	}
+	            
 			});
 	        
 	      	//删除用户

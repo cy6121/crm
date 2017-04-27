@@ -46,9 +46,12 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public void insertCustomer(SaleChance saleChance,Customer customer,Contact contact) {
 		saleChanceMapper.updateSaleChanceState(saleChance);
-		customerMapper.insertCustomer(customer);
-		contact.setCust_id(customer.getCust_id());
-		contactMapper.insertContact(contact);
+		Customer demo = customerMapper.selectCustomerByName(customer.getName());
+		if (demo!=null) {
+			customerMapper.insertCustomer(customer);
+			contact.setCust_id(customer.getCust_id());
+			contactMapper.insertContact(contact);
+		}
 	}
 
 	@Override

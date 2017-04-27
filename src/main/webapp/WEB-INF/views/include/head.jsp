@@ -2,7 +2,7 @@
 <header class="navbar navbar-default">
 	<div class="navbar-header pull-left" data-toggle="class:off-screen"
 		data-target=".sidebar">
-		<a href="#" class="navbar-brand">
+		<a href="javascript:;" class="navbar-brand">
 			<button class="hidden-xs" style="font-size: inherit;">
 				<i class="icon-home"></i>
 			</button>
@@ -15,7 +15,7 @@
 	<div class="navbar-header pull-right" role="navigation">
 		<ul class="nav top-nav">
 			<li class="light-blue no-border-right"><a data-toggle="dropdown"
-				href="#" class="dropdown-toggle"> <img class="nav-user-photo"
+				href="javascript:;" class="dropdown-toggle"> <img class="nav-user-photo"
 					src="${ctxStatic}/assets/images/avatars/administrator.png"
 					alt="Jason's Photo" /> <span class="user-info"><small
 						class="block">欢迎您</small>${curr_user.name}</span> <i

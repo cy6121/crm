@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>服务管理</title>
+<title>服务创建</title>
 <%@ include file="/WEB-INF/views/include/top.jsp" %>
 </head>
 <body>
