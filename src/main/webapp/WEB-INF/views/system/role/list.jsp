@@ -38,7 +38,7 @@
 							class="table table-striped table-bordered table-hover dataTable">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>序号</th>
 									<th>角色</th>
 									<th>描述</th>
 									<th>操作权限</th>
@@ -89,7 +89,7 @@
 	                type:"get" //获取数据的方式
 	            },
 	            "columns":[  //返回的JSON中的对象和列的对应关系
-	                {"data":"roleid"},
+	                {"data":null},
 	                {"data":"rolename"},
 	                {"data":"description"},
 	                {"data":function(row){
@@ -99,15 +99,17 @@
 	                    return "<div class='pull-left action-buttons'><a href='javascript:;' style='text-decoration: none;' class='green' data-id='"+row.roleid+"'><i class='icon-pencil bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='red' data-id='"+row.roleid+"'><i class='icon-trash bigger-110'></i></a></div>";
 	                }}
 	            ],
-	            "columnDefs":[//具体列的定义
-	                {
-	                    "targets":[0],
-	                    "visible":false
-	                }],
 	            "language":{
 	                "processing":"加载中...",
 	                "zeroRecords":"没有检索到数据"
-	            }
+	            },
+	            "drawCallback" : function() { // 序号列
+	            	var api = this.api();
+	            	var startIndex = api.context[0]._iDisplayStart; // 获取本页开始的条数
+	            	api.column(0).nodes().each(function(cell, i) {
+	            	cell.innerHTML = startIndex + i + 1;
+	            	});
+            	}
 			});
 			
 	      	//删除用户

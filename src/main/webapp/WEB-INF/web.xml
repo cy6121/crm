@@ -60,8 +60,4 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!--Druid监控页面 <servlet> <servlet-name>Druid</servlet-name> <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class> 
-		</servlet> <servlet-mapping> <servlet-name>Druid</servlet-name> <url-pattern>/druid/*</url-pattern> 
-		</servlet-mapping> -->
-		
 </web-app>
