@@ -43,11 +43,13 @@
 									<th>客户名称</th>
 									<th>客户经理</th>
 									<th>确认流失时间</th>
+									<th>暂缓措施</th>
 									<th>流失原因</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
+									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -92,6 +94,7 @@
 					{"data" : "customer.name"},
 					{"data" : "customer.manager.name"},
 					{"data" : "lost_date"},
+					{"data" : "delay"},
 					{"data" : "reason"}
 					],
 			"language" : {

@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="selectPayByParam" resultType="java.util.HashMap">
-		select t1.name,sum(t3.price) price
+		select t1.name,t1.level,t1.credit,t1.satisfy,sum(t3.price) price
 		from cst_customer t1,cst_order t2,order_item t3
 		where t1.cust_id=t2.cust_id
 		and t2.odr_id=t3.order_id

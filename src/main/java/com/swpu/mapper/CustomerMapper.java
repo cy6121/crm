@@ -15,6 +15,8 @@ public interface CustomerMapper {
 	
 	List<Customer> selectCustomerALL(Map<String,Object> param);
 	
+	List<Map<String,Object>> selectCustomer();
+	
 	Customer selectCustomerById(Integer cust_id);
 	
 	Customer selectCustomerByName(String name);

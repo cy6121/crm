@@ -48,7 +48,7 @@
 							class="table table-striped table-bordered table-hover dataTable">
 							<thead>
 								<tr>
-									<th width="80px">客户编号</th>
+									<th width="80px">流失编号</th>
 									<th>客户名称</th>
 									<th>客户经理</th>
 									<th width="100px">上次下单时间</th>
@@ -122,7 +122,7 @@
 						}},
 						{"data" : function(row) {
 							if (row.state=="1") {
-								return "<div class='pull-left action-buttons'><a href='javascript:;' onclick='delay("+row.drain_id+")' style='text-decoration: none;' class='green'><i class='icon-edit bigger-110'></i></a> <a href='javascript:;' onclick='confirm("+row.drain_id+")' style='text-decoration: none;' class='blue'><i class='icon-check bigger-110'></i></a> </div>";
+								return "<div class='pull-left action-buttons'><a href='javascript:;' onclick='delay("+row.drain_id+")' title='暂缓流失' style='text-decoration: none;' class='green'><i class='icon-edit bigger-110'></i></a> <a href='javascript:;' onclick='confirm("+row.drain_id+")' title='确认流失' style='text-decoration: none;' class='blue'><i class='icon-check bigger-110'></i></a> </div>";
 							}else{
 								return "";
 							}

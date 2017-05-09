@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public void insertCustomer(SaleChance saleChance,Customer customer,Contact contact) {
 		saleChanceMapper.updateSaleChanceState(saleChance);
 		Customer demo = customerMapper.selectCustomerByName(customer.getName());
-		if (demo!=null) {
+		if (demo==null) {
 			customerMapper.insertCustomer(customer);
 			contact.setCust_id(customer.getCust_id());
 			contactMapper.insertContact(contact);
@@ -84,6 +84,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public Customer selectCustomerByName(String name) {
 		return customerMapper.selectCustomerByName(name);
+	}
+
+	@Override
+	public List<Map<String,Object>> selectCustomer() {
+		return customerMapper.selectCustomer();
 	}
 
 }

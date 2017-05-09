@@ -101,7 +101,7 @@
 						{"data" : "tel"},
 						{"data" : "create_date"},
 						{"data" : function(row) {
-							return "<div class='pull-left action-buttons'><a href='javascript:;' style='text-decoration: none;' class='green' data-id='"+row.sale_id+"'><i class='icon-pencil bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='blue' data-id='"+row.sale_id+"'><i class='icon-external-link bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='red' data-id='"+row.sale_id+"'><i class='icon-trash bigger-110'></i></a></div>";
+							return "<div class='pull-left action-buttons'><a href='javascript:;' style='text-decoration: none;' class='green' data-id='"+row.sale_id+"'><i class='icon-pencil bigger-110'></i></a> <a href='javascript:;' title='指派' style='text-decoration: none;' class='blue' data-id='"+row.sale_id+"'><i class='icon-external-link bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='red' data-id='"+row.sale_id+"'><i class='icon-trash bigger-110'></i></a></div>";
 						}}],
 				"language" : {
 					"lengthMenu":"每页显示 _MENU_ 条记录",

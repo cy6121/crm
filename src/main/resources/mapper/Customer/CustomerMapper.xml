@@ -50,6 +50,11 @@
 		</if>
 		limit ${currentPage},${pageNum}
 	</select>
+	
+	<select id="selectCustomer" resultType="java.util.HashMap">
+		select cust_id,name
+		from cst_customer
+	</select>
 
 	<select id="selectCustomerById" resultMap="CustomerMap">
 		select <include refid="base_column_list"></include>

@@ -29,7 +29,14 @@
 										<label class="col-sm-3 control-label no-padding-right">客户名称</label>
 										<div class="col-sm-9">
 											<div class="clearfix">
-												<input type="text" name="name" class="col-xs-10" >
+												<select name="cust_id" class="col-xs-10">
+													<option value="">请选择</option>
+													<c:if test="${not empty customers}">
+														<c:forEach items="${customers}" var="customer">
+															<option value="${customer.cust_id}">${customer.name}</option>
+														</c:forEach>
+													</c:if>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -112,8 +119,6 @@
 				if (result=="success") {
 					$("#newForm")[0].reset();
 					Dialog.alert("新建成功!");
-				}else if (result=="NotFound") {
-					Dialog.alert("客户不存在!");
 				}
 			}).fail(function(){
 				Dialog.alert("操作异常!");

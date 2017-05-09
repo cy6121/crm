@@ -50,25 +50,23 @@ public class ServiceController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(Model model) {
 		List<Dict> serviceTypes = dictService.findDictByType("服务类型");
+		List<Map<String,Object>> customers = customerService.selectCustomer();
 		model.addAttribute("serviceTypes",serviceTypes);
+		model.addAttribute("customers",customers);
 		return "service/create";
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public String createService(HttpServletRequest request) {
-		String name = request.getParameter("name");
-		Customer customer = customerService.selectCustomerByName(name);
-		if (customer==null) {
-			return "NotFound";
-		}
+		String cust_id = request.getParameter("cust_id");
 		String type = request.getParameter("type");
 		String title = request.getParameter("title");
 		String create_id = request.getParameter("create_id");
 		String Request = request.getParameter("request");
 		
 		Map<String,Object> param = Maps.newHashMap();
-		param.put("cust_id",customer.getCust_id());
+		param.put("cust_id",cust_id);
 		param.put("type",type);
 		param.put("title",title);
 		param.put("create_id",create_id);
