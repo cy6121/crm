@@ -44,12 +44,14 @@
 									<th>概要</th>
 									<th>联系人</th>
 									<th>联系人电话</th>
+									<th>创建人</th>
 									<th>创建时间</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
+									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -99,6 +101,7 @@
 						{"data" : "title"},
 						{"data" : "contact"},
 						{"data" : "tel"},
+						{"data" : "create.name"},
 						{"data" : "create_date"},
 						{"data" : function(row) {
 							return "<div class='pull-left action-buttons'><a href='javascript:;' style='text-decoration: none;' class='green' data-id='"+row.sale_id+"'><i class='icon-pencil bigger-110'></i></a> <a href='javascript:;' title='指派' style='text-decoration: none;' class='blue' data-id='"+row.sale_id+"'><i class='icon-external-link bigger-110'></i></a> <a href='javascript:;' style='text-decoration: none;' class='red' data-id='"+row.sale_id+"'><i class='icon-trash bigger-110'></i></a></div>";

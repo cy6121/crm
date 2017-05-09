@@ -34,6 +34,7 @@
 									<th>客户名称</th>
 									<th>联系人</th>
 									<th>联系人电话</th>
+									<th>创建人</th>
 									<th>创建时间</th>
 									<th>分配给</th>
 									<th>状态</th>
@@ -42,6 +43,7 @@
 							</thead>
 							<tbody>
 								<tr>
+									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -85,6 +87,7 @@
 					{"data" : "cus_name"},
 					{"data" : "contact"},
 					{"data" : "tel"},
+					{"data" : "create.name"},
 					{"data" : "create_date"},
 					{"data" : "allot.name"},
 					{"data" : function(row){
