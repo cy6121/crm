@@ -76,7 +76,17 @@ public class LoginController {
 			session = subject.getSession();// session默认会话时间半小时
 			User user = (User) subject.getPrincipal();
 			session.setAttribute(Const.SESSION_USER, user);
-		//	session.setAttribute(Const.SESSION_ROLE,user.getRoleList());
+			
+			//获取菜单
+			Map<String,Object> params = Maps.newHashMap();
+			params.put("roleList",((User) subject.getPrincipal()).getRoleList());
+			params.put("isSubMenu",false);
+			
+			List<Menu> menuList = menuService.getMenu(params);
+			params.put("isSubMenu",true);
+			List<Menu> submenuList = menuService.getMenu(params);
+			session.setAttribute(Const.SESSION_MENU_KEY,menuList);
+			session.setAttribute(Const.SESSION_SUBMENU_KEY,submenuList);
 			errInfo = "success";
 		} catch (LockedAccountException e) {
 			errInfo = "disable";
@@ -85,15 +95,6 @@ public class LoginController {
 		}
 		map.put("result", errInfo);
 		
-		Map<String,Object> params = Maps.newHashMap();
-		params.put("roleList",((User) subject.getPrincipal()).getRoleList());
-		params.put("isSubMenu",false);
-		
-		List<Menu> menuList = menuService.getMenu(params);
-		params.put("isSubMenu",true);
-		List<Menu> submenuList = menuService.getMenu(params);
-		session.setAttribute(Const.SESSION_MENU_KEY,menuList);
-		session.setAttribute(Const.SESSION_SUBMENU_KEY,submenuList);
 		return map;
 	}
 
