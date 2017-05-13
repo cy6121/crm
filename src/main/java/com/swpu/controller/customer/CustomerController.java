@@ -5,10 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Maps;
 import com.swpu.entity.Customer;
 import com.swpu.entity.Dict;
-import com.swpu.entity.User;
 import com.swpu.service.CustomerService;
 import com.swpu.service.DictService;
-import com.swpu.service.UserService;
 
 /** 
 * @author  cy
@@ -34,9 +32,6 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
-	
-	@Autowired
-	private UserService userService;
 	
 	@Autowired
 	private DictService dictService;
@@ -61,15 +56,8 @@ public class CustomerController {
         String state = request.getParameter("state");
         
         Map<String,Object> param = Maps.newHashMap();
-        if (!StringUtils.isEmpty(manager_name)) {
-        	User manager = userService.getUserByName(manager_name);
-        	if (manager!=null) {
-    			param.put("manager_id",manager.getUserid());
-    		}else{
-    			param.put("manager_id"," ");
-    		}
-		}
-		param.put("currentPage",currentPage);
+        param.put("manager_name",manager_name);
+        param.put("currentPage",currentPage);
 		param.put("pageNum",pageNum);
 		param.put("cust_name",cust_name);
 		param.put("state",state);
@@ -85,8 +73,8 @@ public class CustomerController {
 		return map;
 	}
 	
-	@RequestMapping(value = "edit",method = RequestMethod.GET)
-	public String dataOne(Integer cust_id,Model model){
+	@RequestMapping(value = "edit/{cust_id}",method = RequestMethod.GET)
+	public String dataOne(@PathVariable("cust_id") Integer cust_id,Model model){
 		Customer customer = customerService.selectCustomerById(cust_id);
 		List<Dict> regionList = dictService.findDictByType("地区");
 		List<Dict> levelList = dictService.findDictByType("客户等级");

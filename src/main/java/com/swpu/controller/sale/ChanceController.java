@@ -12,6 +12,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -155,8 +156,8 @@ public class ChanceController {
 		return "success";
 	}
 	
-	@RequestMapping(value = "detail",method = RequestMethod.GET)
-	public String detail(Integer sale_id,Model model){
+	@RequestMapping(value = "/{sale_id}",method = RequestMethod.GET)
+	public String detail(@PathVariable("sale_id") Integer sale_id,Model model){
 		SaleChance saleChance = saleChanceService.findSaleChanceById(sale_id);
 		List<SalePlan> planList = salePlanService.selectSalePlanById(sale_id);
 		model.addAttribute("saleChance",saleChance);

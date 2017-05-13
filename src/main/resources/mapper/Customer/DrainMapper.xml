@@ -11,33 +11,47 @@
 		<result column="delay" property="delay"/>
 		<result column="reason" property="reason"/>
 		<result column="state" property="state"/>
-		<association property="customer" column="cust_id" select="com.swpu.mapper.CustomerMapper.selectCustomerById"> 
+		<association property="customer" javaType="Customer"> 
+			<result column="customerName" property="name"/>
+			<association property="manager" javaType="User">
+				<result column="managerName" property="name"/>
+			</association>
 		</association>
 	</resultMap>
 
 	<sql id="base_column_list">
-		drain_id,cust_id,manager_id,last_order_date,lost_date,delay,reason,state
+		drain_id,cst_drain.cust_id,cst_drain.manager_id,last_order_date,lost_date,delay,reason,cst_drain.state
 	</sql>
 
 	<select id="selectDrainALL" resultMap="drainMap">
 		select <include refid="base_column_list"></include>
-		from cst_drain
-		where 1=1
-		<if test="manager_id!=null and manager_id!=''">
-			and manager_id=#{manager_id}
+		,manager.name as managerName,customer.name as customerName
+		from cst_drain,
+		(select userid,name from sys_user) manager,
+		(select cust_id,name,manager_id from cst_customer) customer
+		where customer.manager_id=manager.userid
+		and customer.cust_id=cst_drain.cust_id
+		<if test="manager_name!=null and manager_name!=''">
+			and manager.name like concat('%',#{manager_name},'%')
 		</if>
-		<if test="cust_id!=null and cust_id!=''">
-			and cust_id=#{cust_id}
+		<if test="cust_name!=null and cust_name!=''">
+			and customer.name like concat('%',#{cust_name},'%')
 		</if>
 		<if test="state!=null and state!=''">
-			and state=#{state}
+			and cst_drain.state=#{state}
 		</if>
 		limit ${currentPage},${pageNum}
 	</select>
 	
 	<select id="selectDrainById" resultMap="drainMap">
 		select <include refid="base_column_list"></include>
-		from cst_drain where drain_id=#{drain_id}
+		,manager.name as managerName,customer.name as customerName
+		from cst_drain,
+		(select userid,name from sys_user) manager,
+		(select cust_id,name,manager_id from cst_customer) customer
+		where customer.manager_id=manager.userid
+		and customer.cust_id=cst_drain.cust_id
+		and drain_id=#{drain_id}
 	</select>
 	
 	<select id="findDrainCount" resultType="Integer">
@@ -45,16 +59,19 @@
 	</select>
 	
 	<select id="findDrainCountByParam" resultType="Integer">
-		select count(drain_id) from cst_drain
-		where 1=1
-		<if test="manager_id!=null and manager_id!=''">
-			and manager_id=#{manager_id}
+		select count(drain_id) from cst_drain,
+		(select userid,name from sys_user) manager,
+		(select cust_id,name,manager_id from cst_customer) customer
+		where customer.manager_id=manager.userid
+		and customer.cust_id=cst_drain.cust_id
+		<if test="manager_name!=null and manager_name!=''">
+			and manager.name like concat('%',#{manager_name},'%')
 		</if>
-		<if test="cust_id!=null and cust_id!=''">
-			and cust_id=#{cust_id}
+		<if test="cust_name!=null and cust_name!=''">
+			and customer.name like concat('%',#{cust_name},'%')
 		</if>
 		<if test="state!=null and state!=''">
-			and state=#{state}
+			and cst_drain.state=#{state}
 		</if>
 	</select>
 	

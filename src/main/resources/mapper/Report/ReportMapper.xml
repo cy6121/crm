@@ -26,8 +26,8 @@
 		from cst_customer t1,cst_order t2,order_item t3
 		where t1.cust_id=t2.cust_id
 		and t2.odr_id=t3.order_id
-		<if test='cust_id!=null and cust_id!=""'>
-			and t1.cust_id = #{cust_id}
+		<if test='cust_name!=null and cust_name!=""'>
+			and t1.name like concat('%',#{cust_name},'%')
 		</if>
 		<if test='date1!=null and date1!=""'>
 			and t2.odr_date <![CDATA[ >= ]]> #{date1}
@@ -53,8 +53,8 @@
 		from cst_customer t1,cst_order t2,order_item t3
 		where t1.cust_id=t2.cust_id
 		and t2.odr_id=t3.order_id
-		<if test='cust_id!=null and cust_id!=""'>
-			and t1.cust_id = #{cust_id}
+		<if test='cust_name!=null and cust_name!=""'>
+			and t1.name like concat('%',#{cust_name},'%')
 		</if>
 		<if test='date1!=null and date1!=""'>
 			and t2.odr_date <![CDATA[ >= ]]> #{date1}

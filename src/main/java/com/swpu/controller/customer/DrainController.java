@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
-import com.swpu.entity.Customer;
 import com.swpu.entity.Drain;
-import com.swpu.entity.User;
-import com.swpu.service.CustomerService;
 import com.swpu.service.DrainService;
-import com.swpu.service.UserService;
 
 /** 
 * @author  cy
@@ -32,13 +27,7 @@ import com.swpu.service.UserService;
 public class DrainController {
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
 	private DrainService drainService;
-	
-	@Autowired
-	private CustomerService customerService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String drainList() {
@@ -59,23 +48,8 @@ public class DrainController {
         String state = request.getParameter("state");
         
         Map<String,Object> param = Maps.newHashMap();
-        if (!StringUtils.isEmpty(cust_name)) {
-        	Customer customer = customerService.selectCustomerByName(cust_name);
-        	if (customer!=null) {
-    			param.put("cust_id",customer.getCust_id());
-    		}else{
-    			param.put("cust_id"," ");
-    		}
-		}
-        if (!StringUtils.isEmpty(manager_name)) {
-        	User manager = userService.getUserByName(manager_name);
-        	if (manager!=null) {
-    			param.put("manager_id",manager.getUserid());
-    		}else{
-    			param.put("manager_id"," ");
-    		}
-		}
-    	
+        
+    	param.put("manager_name",manager_name);
 		param.put("currentPage",currentPage);
 		param.put("pageNum",pageNum);
 		param.put("cust_name",cust_name);

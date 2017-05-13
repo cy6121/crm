@@ -119,7 +119,7 @@
 							}
 						}},
 						{"data" : function(row) {
-							return "<div class='pull-left action-buttons'><a href='${ctx}/customer/edit?cust_id="+row.cust_id+"' title='编辑' style='text-decoration: none;' class='green'><i class='icon-pencil bigger-110'></i></a> <a href='${ctx}/customer/contact?cust_id="+row.cust_id+"&name="+row.name+"' title='联系人管理' style='text-decoration: none;' class='blue'><i class='icon-group bigger-110'></i></a> <a href='${ctx}/customer/activity?cust_id="+row.cust_id+"&name="+row.name+"' title='交往记录' style='text-decoration: none;' class='blue'><i class='icon-exchange bigger-110'></i></a> <a href='${ctx}/customer/order?cust_id="+row.cust_id+"&name="+row.name+"' title='历史订单' style='text-decoration: none;' class='blue'><i class='icon-calendar bigger-110'></i></a> </div>";
+							return "<div class='pull-left action-buttons'><a href='${ctx}/customer/edit/"+row.cust_id+"' title='编辑' style='text-decoration: none;' class='green'><i class='icon-pencil bigger-110'></i></a> <a href='${ctx}/customer/contact?cust_id="+row.cust_id+"&name="+row.name+"' title='联系人管理' style='text-decoration: none;' class='blue'><i class='icon-group bigger-110'></i></a> <a href='${ctx}/customer/activity?cust_id="+row.cust_id+"&name="+row.name+"' title='交往记录' style='text-decoration: none;' class='blue'><i class='icon-exchange bigger-110'></i></a> <a href='${ctx}/customer/order?cust_id="+row.cust_id+"&name="+row.name+"' title='历史订单' style='text-decoration: none;' class='blue'><i class='icon-calendar bigger-110'></i></a> </div>";
 						}}],
 				"language" : {
 					"lengthMenu":"每页显示 _MENU_ 条记录",

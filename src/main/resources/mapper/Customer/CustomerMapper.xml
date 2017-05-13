@@ -24,26 +24,28 @@
 		<result column="bank_account" property="bank_account"/>
 		<result column="state" property="state"/>
 		
-		<association property="manager" column="manager_id"
-			select="com.swpu.mapper.UserMapper.getUserByUserId">
+		<association property="manager"  javaType="User">
+			<result column="managerName" property="name"/>
 		</association>
 		
 	</resultMap>
 
 	<sql id="base_column_list">
-		cust_id,name,region,manager_id,level,satisfy,credit,address,zip,tel,fax,
+		cust_id,cst_customer.name,region,level,satisfy,credit,address,zip,tel,fax,
 		website,licence_no,chieftain,bankroll,turnover,bank,bank_account,state
 	</sql>
 
 	<select id="selectCustomerALL" resultMap="CustomerMap">
-		select <include refid="base_column_list"></include>
-		from cst_customer
+		select <include refid="base_column_list"></include>,manager.name as managerName
+		from cst_customer,
+		(select userid,name from sys_user) manager
 		where 1=1
-		<if test="manager_id!=null and manager_id!=''">
-			and manager_id=#{manager_id}
+		<if test="manager_name!=null and manager_name!=''">
+			and manager.name like concat('%',#{manager_name},'%')
 		</if>
+		and manager_id = manager.userid
 		<if test="cust_name!=null and cust_name!=''">
-			and name=#{cust_name}
+			and cst_customer.name like concat('%',#{cust_name},'%')
 		</if>
 		<if test="state!=null and state!=''">
 			and state=#{state}
@@ -57,15 +59,19 @@
 	</select>
 
 	<select id="selectCustomerById" resultMap="CustomerMap">
-		select <include refid="base_column_list"></include>
-		from cst_customer
+		select <include refid="base_column_list"></include>,manager.name as managerName
+		from cst_customer,
+		(select userid,name from sys_user) manager
 		where cust_id=#{cust_id}
+		and manager_id = manager.userid
 	</select>
 	
 	<select id="selectCustomerByName" resultMap="CustomerMap">
-		select <include refid="base_column_list"></include>
-		from cst_customer
-		where name=#{name}
+		select <include refid="base_column_list"></include>,manager.name as managerName
+		from cst_customer,
+		(select userid,name from sys_user) manager
+		where cst_customer.name=#{name}
+		and manager_id = manager.userid
 	</select>
 	
 	<select id="findCustomerCount" resultType="Integer">
@@ -73,13 +79,15 @@
 	</select>
 	
 	<select id="findCustomerCountByParam" resultType="Integer">
-		select count(cust_id) from cst_customer
+		select count(cust_id) from cst_customer,
+		(select userid,name from sys_user) manager
 		where 1=1
-		<if test="manager_id!=null and manager_id!=''">
-			and manager_id=#{manager_id}
+		<if test="manager_name!=null and manager_name!=''">
+			and manager.name like concat('%',#{manager_name},'%')
 		</if>
+		and manager_id = manager.userid
 		<if test="cust_name!=null and cust_name!=''">
-			and name=#{cust_name}
+			and cst_customer.name like concat('%',#{cust_name},'%')
 		</if>
 		<if test="state!=null and state!=''">
 			and state=#{state}

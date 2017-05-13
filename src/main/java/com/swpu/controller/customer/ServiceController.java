@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
 import com.swpu.entity.CstService;
-import com.swpu.entity.Customer;
 import com.swpu.entity.Dict;
 import com.swpu.entity.User;
 import com.swpu.service.CustService;
@@ -174,15 +172,7 @@ public class ServiceController {
         String state = request.getParameter("state");
         
         Map<String,Object> param = Maps.newHashMap();
-        if (!StringUtils.isEmpty(cust_name)) {
-        	Customer customer = customerService.selectCustomerByName(cust_name);
-        	if (customer!=null) {
-    			param.put("cust_id",customer.getCust_id());
-    		}else{
-    			param.put("cust_id"," ");
-    		}
-		}
-    	
+        param.put("cust_name",cust_name);
 		param.put("currentPage",currentPage);
 		param.put("pageNum",pageNum);
 		param.put("title",title);

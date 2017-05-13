@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
-import com.swpu.entity.Customer;
-import com.swpu.service.CustomerService;
 import com.swpu.service.ReportService;
 
 /** 
@@ -31,9 +29,6 @@ public class ReportController {
 	
 	@Autowired
 	private ReportService reportService;
-	
-	@Autowired
-	private CustomerService customerService;
 	
 	@RequestMapping(value = "consist", method = RequestMethod.GET)
 	public String consist() {
@@ -84,16 +79,7 @@ public class ReportController {
 			date2 = DateTime.parse(date2).plusDays(1).toString("yyyy-MM-dd");
 		}
 		Map<String,Object> param = Maps.newHashMap();
-		
-		if (!StringUtils.isEmpty(cust_name)) {
-			Customer customer = customerService.selectCustomerByName(cust_name);
-			if (customer!=null) {
-				param.put("cust_id",customer.getCust_id());
-			}else{
-				param.put("cust_id"," ");
-			}
-		}
-		
+		param.put("cust_name",cust_name);
 		param.put("date1",date1);
 		param.put("date2",date2);
 		param.put("currentPage",currentPage);
