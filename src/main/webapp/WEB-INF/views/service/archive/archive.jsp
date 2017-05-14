@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>客户归档</title>
+<title>服务归档</title>
 <%@ include file="/WEB-INF/views/include/top.jsp" %>
 </head>
 <body>
@@ -14,7 +14,7 @@
 			<div class="breadcrumbs">
 				<ul class="breadcrumb">
 					<li><i class="icon-home home-icon"></i>服务管理</li>
-					<li class="active">客户归档</li>
+					<li class="active">服务归档</li>
 				</ul>
 			</div>
 			<div class="page-content">

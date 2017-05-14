@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="${ctxStatic}/assets/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="${ctx}/plugins/zTree/2.6/zTreeStyle.css"/>
 <link rel="stylesheet" href="${ctx}/plugins/combo/css/combo.select.css"/>
+<link rel="stylesheet" href="${ctxStatic}/assets/css/dataTables.bootstrap.min.css" />
 
 <script src="${ctxStatic}/assets/js/jquery-2.0.3.min.js"></script>
 <script src="${ctxStatic}/assets/js/jquery.tips.js"></script>

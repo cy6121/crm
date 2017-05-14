@@ -5,11 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>角色管理</title>
 <%@ include file="/WEB-INF/views/include/top.jsp"%>
-<link rel="stylesheet"
-	href="${ctxStatic}/assets/css/dataTables.bootstrap.min.css" />
-	<script type="text/javascript">
-		var dataTable;
-	</script>
+<script type="text/javascript">
+	var dataTable;
+</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/head.jsp"%>

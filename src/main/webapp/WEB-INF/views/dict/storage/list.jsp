@@ -5,8 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>库存信息</title>
 <%@ include file="/WEB-INF/views/include/top.jsp"%>
-<link rel="stylesheet"
-	href="${ctxStatic}/assets/css/dataTables.bootstrap.min.css" />
 <script type="text/javascript">
 	var dataTable;
 </script>
