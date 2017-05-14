@@ -49,10 +49,11 @@
 							<thead>
 								<tr>
 									<th width="80px">流失编号</th>
-									<th>客户名称</th>
-									<th>客户经理</th>
-									<th width="100px">上次下单时间</th>
-									<th width="100px">确认流失时间</th>
+									<th width="80px">客户名称</th>
+									<th width="80px">客户经理</th>
+									<th>上次下单时间</th>
+									<th>确认流失时间</th>
+									<th width="100px">暂缓措施</th>
 									<th width="100px">流失原因</th>
 									<th>状态</th>
 									<th>操作</th>
@@ -112,6 +113,7 @@
 						{"data" : "customer.manager.name"},
 						{"data" : "last_order_date"},
 						{"data" : "lost_date"},
+						{"data" : "delay"},
 						{"data" : "reason"},
 						{"data" : function(row){
 							if(row.state=="1"){

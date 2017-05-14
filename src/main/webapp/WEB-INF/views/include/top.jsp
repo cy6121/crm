@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="${ctxStatic}/assets/css/media.css" />
 <link rel="stylesheet" href="${ctxStatic}/assets/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="${ctx}/plugins/zTree/2.6/zTreeStyle.css"/>
+<link rel="stylesheet" href="${ctx}/plugins/combo/css/combo.select.css"/>
 
 <script src="${ctxStatic}/assets/js/jquery-2.0.3.min.js"></script>
 <script src="${ctxStatic}/assets/js/jquery.tips.js"></script>
@@ -23,3 +24,4 @@
 <script src="${ctx}/plugins/zDialog/zDrag.js"></script>
 <script src="${ctx}/plugins/zDialog/zDialog.js"></script>
 <script src="${ctx}/plugins/zTree/2.6/jquery.ztree-2.6.min.js"></script>
+<script src="${ctx}/plugins/combo/js/jquery.combo.select.js"></script>

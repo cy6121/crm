@@ -65,7 +65,7 @@
 										<label class="col-sm-3 control-label no-padding-right">概要</label>
 										<div class="col-sm-9">
 											<div class="clearfix">
-												<input type="text" name="title" class="col-xs-10">
+												<input type="text" name="title" class="col-xs-11">
 											</div>
 										</div>
 									</div>
@@ -76,7 +76,7 @@
 										<label class="col-sm-3 control-label no-padding-right">创建人</label>
 										<div class="col-sm-9">
 											<div class="clearfix">
-												<input type="text" name="create_name" class="col-xs-10" value="${curr_user.name}" readonly="readonly">
+												<input type="text" name="create_name" class="col-xs-11" value="${curr_user.name}" readonly="readonly">
 												<input type="hidden" name="create_id" value="${curr_user.userid}">
 											</div>
 										</div>
@@ -124,6 +124,7 @@
 				Dialog.alert("操作异常!");
 			});
 		}
-		
+
+		$("select").comboSelect();
 	</script>
 </body>

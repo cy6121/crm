@@ -60,7 +60,8 @@
 </div>
 <!-- /.modal -->
 <script type="text/javascript">
-	function confirm(drain_id){
+	function confirm(drain_id,manager_id){
+		
 		$("#confirmForm")[0].reset();
 		$.get("${ctx}/customer/drain/data.json", {
 			"drain_id" : drain_id

@@ -85,6 +85,7 @@
 	<script src="${ctxStatic}/assets/js/jquery.dataTables.min.js"></script>
 	<script src="${ctxStatic}/assets/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
+	
 	function dispatch(svr_id) {
 		var allot_id = $("#allot_id-"+svr_id).val();
 		console.log(allot_id);
@@ -168,6 +169,7 @@
                     "previous":   "上一页"
                 }
 			}
+			
 		});
 
 		 //自定义搜索
@@ -175,7 +177,7 @@
         	dataTable.draw(); // DataTables会自动的执行查询
         });
 
-		
 	});
+	
 	</script>
 </body>

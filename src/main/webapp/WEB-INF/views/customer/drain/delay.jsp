@@ -55,7 +55,8 @@
 </div>
 <!-- /.modal -->
 <script type="text/javascript">
-	function delay(drain_id){
+	function delay(drain_id,manager_id){
+		
 		$("#delayForm")[0].reset();
 		$.get("${ctx}/customer/drain/data.json", {
 			"drain_id" : drain_id

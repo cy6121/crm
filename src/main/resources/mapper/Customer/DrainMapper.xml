@@ -45,7 +45,7 @@
 	
 	<select id="selectDrainById" resultMap="drainMap">
 		select <include refid="base_column_list"></include>
-		,manager.name as managerName,customer.name as customerName
+		,manager.userid,manager.name as managerName,customer.name as customerName
 		from cst_drain,
 		(select userid,name from sys_user) manager,
 		(select cust_id,name,manager_id from cst_customer) customer
