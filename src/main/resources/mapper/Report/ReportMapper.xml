@@ -18,7 +18,7 @@
 			on t1.item = t2.satisfy
 		</if>
 		where t1.type=#{type}
-		group by t1.item;
+		group by t1.item
 	</select>
 	
 	<select id="selectPayByParam" resultType="java.util.HashMap">

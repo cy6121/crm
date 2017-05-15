@@ -87,7 +87,6 @@
 	
 	function dispatch(svr_id) {
 		var allot_id = $("#allot_id-"+svr_id).val();
-		console.log(allot_id);
 		if (allot_id=="") {
 			Dialog.alert("请选择分配给谁!");
 			return;
