@@ -12,6 +12,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -108,8 +109,8 @@ public class PlanController {
 		return "success";
 	}
 	
-	@RequestMapping(value = "make", method = RequestMethod.GET)
-	public String planMake(Integer sale_id,Model model){
+	@RequestMapping(value = "make/{sale_id}", method = RequestMethod.GET)
+	public String planMake(@PathVariable("sale_id") Integer sale_id,Model model){
 		SaleChance saleChance = saleChanceService.findSaleChanceById(sale_id);
 		List<SalePlan> planList = salePlanService.selectSalePlanById(sale_id);
 		model.addAttribute("saleChance",saleChance);
@@ -124,8 +125,8 @@ public class PlanController {
 		return "success";
 	}
 	
-	@RequestMapping(value = "exec", method = RequestMethod.GET)
-	public String planExec(Integer sale_id,Model model){
+	@RequestMapping(value = "exec/{sale_id}", method = RequestMethod.GET)
+	public String planExec(@PathVariable("sale_id") Integer sale_id,Model model){
 		SaleChance saleChance = saleChanceService.findSaleChanceById(sale_id);
 		List<SalePlan> planList = salePlanService.selectSalePlanById(sale_id);
 		model.addAttribute("saleChance",saleChance);

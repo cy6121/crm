@@ -8,7 +8,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">编辑库存</h4>
+				<h4 class="modal-title">编辑用户</h4>
 			</div>
 			<div class="modal-body">
 				<form id="editForm" class="form-horizontal">

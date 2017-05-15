@@ -55,7 +55,6 @@
 	$("#MenuBtn").click(function() {
 		var url = "${ctx}/system/role/auth";
 		var nodes = zMenuTree.getCheckedNodes();
-		console.log(nodes);
 		var tempNode;
 		var ids = "";
 		for (var index = 0; index < nodes.length; index++) {

@@ -101,7 +101,7 @@
 						if(row.state!="2"){
 							return "<div class='pull-left action-buttons'><a href='${ctx}/sale/chance/"+row.sale_id+"' style='text-decoration: none;' class='blue'><i class='icon-zoom-in bigger-110'></i></a></div>";
 						}
-						return "<div class='pull-left action-buttons'><a href='${ctx}/sale/plan/make?sale_id="+row.sale_id+"' title='制定计划' style='text-decoration: none;' class='green'><i class='icon-book bigger-110'></i></a> <a href='${ctx}/sale/plan/exec?sale_id="+row.sale_id+"' title='执行计划' style='text-decoration: none;' class='blue' data-id='"+row.sale_id+"'><i class='icon-bookmark bigger-110'></i></a></div>";
+						return "<div class='pull-left action-buttons'><a href='${ctx}/sale/plan/make/"+row.sale_id+"' title='制定计划' style='text-decoration: none;' class='green'><i class='icon-book bigger-110'></i></a> <a href='${ctx}/sale/plan/exec/"+row.sale_id+"' title='执行计划' style='text-decoration: none;' class='blue' data-id='"+row.sale_id+"'><i class='icon-bookmark bigger-110'></i></a></div>";
 					}}],
 			"language" : {
 				"lengthMenu":"每页显示 _MENU_ 条记录",

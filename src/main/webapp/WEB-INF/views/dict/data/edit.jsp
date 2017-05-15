@@ -13,29 +13,29 @@
 				<form id="editForm" class="form-horizontal">
 					<input type="hidden" name="dictId" id="dictId">
 					<div class="form-group">
-						<label class="col-sm-2 control-label">类型</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 control-label">类型</label>
+						<div class="col-sm-9">
 							<input type="text" class="form-control" name="type"
 								id="type">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">条目</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 control-label">条目</label>
+						<div class="col-sm-9">
 							<input type="text" class="form-control" name="item"
 								id="item">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">值</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 control-label">值</label>
+						<div class="col-sm-9">
 							<input type="text" class="form-control" name="value"
 								id="value">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">是否可更改</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 control-label">是否可更改</label>
+						<div class="col-sm-9">
 							<div class="radio">
 								<label> <input type="radio" class="radio" name="editable"
 									value="1" id="ok"><span class="lbl">是</span>
