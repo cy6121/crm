@@ -78,6 +78,20 @@
 										</div>
 									</div>
 								</div>
+								
+								<div class="col-md-6 col-sm-12 col-xs-12 no-padding-left">
+									<div class="form-group clearfix">
+										<div class="control-group">
+											<label class="col-sm-3 control-label no-padding-right">角色</label>
+											<div class="checkbox">
+												<c:forEach var="role" items="${curr_user.roleList}">
+													<label> <input type="checkbox" class="checkbox" checked="checked" 
+														name="role" value="${role.roleid}"><span class="lbl">${role.rolename}</span></label>
+												</c:forEach>
+											</div>
+										</div>
+									</div>
+								</div>
 
 							</div>
 							<h4 class="header blue bolder smaller">修改密码</h4>
@@ -185,7 +199,7 @@
 				var userid = $("#userid").val();
 				$.ajax({
 					type : "POST",
-					url : "${ctx}/system/user/edit",
+					url : "${ctx}/system/user/update",
 					dataType : 'json',
 					data : {
 						userid : userid,

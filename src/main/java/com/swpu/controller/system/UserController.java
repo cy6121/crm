@@ -45,7 +45,7 @@ public class UserController {
 		return "system/user/information";
 	}
 
-	@RequestMapping(value = "edit")
+	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
 	public Object editUser(User user) {
 
