@@ -217,7 +217,7 @@
 			
 			$.post(url, args).done(function(result) {
 				if ("success" == result) {
-					window.location.href="${ctx}/sale/chance/detail?sale_id=${saleChance.sale_id}";
+					window.location.href="${ctx}/sale/chance/${saleChance.sale_id}";
 				}
 			}).fail(function() {
 				Dialog.alert("修改异常");

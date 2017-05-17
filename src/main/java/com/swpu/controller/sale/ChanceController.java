@@ -117,8 +117,8 @@ public class ChanceController {
 	
 	@RequestMapping(value = "del",method = RequestMethod.POST)
 	@ResponseBody
-	public String del(Integer stkId){
-		saleChanceService.deleteSaleChance(stkId);
+	public String del(Integer sale_id){
+		saleChanceService.deleteSaleChance(sale_id);
 		return "success";
 	}
 	

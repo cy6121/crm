@@ -80,7 +80,7 @@
 	</insert>
 
 	<delete id="deleteSaleChance">
-		delete from pro_SaleChance where sale_id=#{sale_id}
+		delete from sal_chance where sale_id=#{sale_id}
 	</delete>	
 	
 	<update id="updateSaleChance">
