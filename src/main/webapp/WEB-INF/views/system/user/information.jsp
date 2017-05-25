@@ -85,7 +85,7 @@
 											<label class="col-sm-3 control-label no-padding-right">角色</label>
 											<div class="checkbox">
 												<c:forEach var="role" items="${curr_user.roleList}">
-													<label> <input type="checkbox" class="checkbox" checked="checked" 
+													<label> <input type="checkbox" class="checkbox" checked="checked" disabled="disabled"
 														name="role" value="${role.roleid}"><span class="lbl">${role.rolename}</span></label>
 												</c:forEach>
 											</div>
